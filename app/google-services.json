@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "416421360687",
+    "firebase_url": "https://sensorify-app.firebaseio.com",
+    "project_id": "sensorify-app",
+    "storage_bucket": "sensorify-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416421360687:android:69e774d9864fdd820c02da",
+        "android_client_info": {
+          "package_name": "it.alwe.sensorify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416421360687-fgvidhpos0m06pojoteamscf4omn060v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANomrW1122t3A-XRF8z1iErGJo7z4pNts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416421360687-fgvidhpos0m06pojoteamscf4omn060v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accelerometer_block">Accelerometro</string>
+    <string name="accelerometer_page">Accelerometro</string>
+    <string name="androidID">ID Android :</string>
+    <string name="androidVersion">Versione Android :</string>
+    <string name="barometer_block">Pressione</string>
+    <string name="barometer_page">Barometro</string>
+    <string name="battery_block">Batteria</string>
+    <string name="battery_capacity">Capacità totale :</string>
+    <string name="battery_charge_mode">Modalità di carica :</string>
+    <string name="battery_current_capacity">Capacità attuale : %1$d mAh</string>
+    <string name="battery_example">Esempio : Xiaomi Mi 8 -> 3400 mAh</string>
+    <string name="battery_health">Salute :</string>
+    <string name="battery_page">Batteria</string>
+    <string name="battery_percentage">Percentuale : %1$d %%</string>
+    <string name="battery_real_percentage">Reale percentuale di carica : %1$d %%</string>
+    <string name="battery_state">Stato :</string>
+    <string name="battery_technology">Tecnologia :</string>
+    <string name="battery_temperature">Temperatura :</string>
+    <string name="battery_text_input">Capacità nominale (mAh)</string>
+    <string name="battery_tutorial">Guida alla calibrazione</string>
+    <string name="battery_volt">Voltaggio :</string>
+    <string-array name="battery_states">
+        <item>Piena</item>
+        <item>In carica</item>
+        <item>Non in carica</item>
+        <item>Sconosciuta</item>
+    </string-array>
+    <string-array name="battery_health_types">
+        <item>Buona</item>
+        <item>Surriscaldata</item>
+        <item>Sovraccaricata</item>
+        <item>Fredda</item>
+        <item>Quasi totalmente deteriorata</item>
+        <item>Sconosciuta</item>
+    </string-array>
+    <string-array name="battery_charge_modes">
+        <item>Nessuna</item>
+        <item>Corrente alternata (AC)</item>
+        <item>Tramite USB</item>
+        <item>Wireless</item>
+    </string-array>
+    <string name="block_details">Dettagli</string>
+    <string name="block_info">Informazioni</string>
+    <string name="brand">Brand :</string>
+    <string name="connection_block">Connessione</string>
+    <string name="connection_page">Connessione</string>
+    <string name="credits_page">Crediti</string>
+    <string name="gyroscope_block">Giroscopio</string>
+    <string name="gyroscope_page">Giroscopio</string>
+    <string name="home_page">Panoramica</string>
+    <string name="interfaceVersion">Interfaccia :</string>
+    <string name="luminosityText">Luminosità = %1$s lx</string>
+    <string name="luminosity_block">Luminosità</string>
+    <string name="luminosity_page">Luminosità</string>
+    <string name="magnetometer_block">Magnete</string>
+    <string name="magnetometer_page">Magnetometro</string>
+    <string name="manufacturer">Costruttore :</string>
+    <string name="model">Modello :</string>
+    <string name="pressureText">Pressione = %1$s</string>
+    <string name="screenDensity">Densità schermo :</string>
+    <string name="screenResolution">Risoluzione schermo :</string>
+    <string name="screenSize">Dimensione schermo :</string>
+    <string name="sdkVersion">Versione SDK :</string>
+    <string name="secPatch">Patch di sicurezza :</string>
+    <string name="sensorPowerUsage">Consumo di energia :</string>
+    <string name="sensorRange">Portata massima :</string>
+    <string name="sensorResolution">Risoluzione massima :</string>
+    <string name="sensorVendor">Venditore :</string>
+    <string name="sensorVersion">Versione :</string>
+    <string name="settings_battery">Basato sulla batteria</string>
+    <string name="settings_battery_summary_off">Non imposta il tema scuro in base alla percentuale della batteria.</string>
+    <string name="settings_category_title_theme">Tema</string>
+    <string name="settings_language">Lingua</string>
+    <string name="settings_language_dialog_title">Scegli una lingua :</string>
+    <string name="settings_language_summary">Cambia la lingua dell\'applicazione.</string>
+    <string name="settings_battery_summary_on">Imposta il tema scuro quando la batteria è inferiore al 30 %.</string>
+    <string name="settings_page">Impostazioni</string>
+    <string name="settings_theme">Cambia tema</string>
+    <string name="settings_theme_summary_off">Imposta il tema scuro dell\'applicazione.</string>
+    <string name="settings_theme_summary_on">Imposta il tema chiaro dell\'applicazione.</string>
+    <string name="settings_time">Basato sull\'orario</string>
+    <string name="settings_time_summary_off">Non imposta il tema scuro in base all\'ora locale.</string>
+    <string name="settings_time_summary_on">Imposta il tema oscuro dopo le 20:00 (08:00 pm)</string>
+    <string name="storage">Memoria interna :</string>
+    <string name="system_block">Sistema</string>
+    <string name="system_page">Sistema</string>
+    <string name="unavailableValue">Non disponibile</string>
+    <string name="unknownValue">Sconosciuto</string>
+    <string name="wifi_android_perms">Da Android 8 (Oreo), il sistema operativo richiede l\'accesso alla posizione per informazioni sulla connessione.</string>
+    <string name="wifi_ip">Indirizzo IP :</string>
+    <string name="wifi_mac">Indirizzo MAC :</string>
+    <string name="wifi_ssid">Nome (SSID) :</string>
+    <string name="wifi_state_value_off">disabilitato</string>
+    <string name="wifi_state_value_on">abilitato</string>
+    <string name="battery_advice">Se la differenza &lt;b>( %1$d )&lt;/b> tra la percentuale di carica della batteria visualizzata e la percentuale effettiva di carica della batteria è uguale o maggiore di &lt;b>10&lt;/b>, si consiglia di seguire la guida sottostante relativa alla calibrazione della batteria.</string>
+    <string name="battery_tutorial_text"><font size="22"><b>1.</b></font> Scaricare la batteria dello smartphone fino a quando non si spegne automaticamente. Successivamente, è necessario riaccendere il telefono e, se rimane acceso, è necessario attendere che si spenga nuovamente. Ripetere l\'operazione fino al punto in cui, quando si riaccende lo smartphone, si spegne immediatamente.
+        \n\n<font size="22"><b>2.</b></font> A questo punto metti il ​​dispositivo in carica (da spento) e attendi che l\'indicatore della batteria raggiunga il 100%. Quindi fai ricaricare il telefono per una/due ore e ignora tutti i messaggi che appaiono sullo schermo. Questo è un passaggio <b>IMPORTANTE</b> ma non bisogna esagerare: dopo il tempo previsto, scollegare il telefono dalla carica o si potrebbe danneggiare la batteria.
+        \n\n<font size="22"><b>3.</b></font> Ora rimuovi la batteria dallo smartphone per <b>10-15</b> minuti e poi reinseriscila. Se lo smartphone non consente di rimuovere la batteria, tenere spento il dispositivo per lo stesso periodo di tempo.
+        \n\n<font size="22"><b>4.</b></font> Una volta completata l\'operazione, rimetti in carica il telefono e attendi <b>5</b> minuti, quindi accendi lo smartphone e attendi che la schermata principale di Android sia utilizzabile e scollegare il caricabatterie. In questo modo dovresti essere in grado di calibrare la batteria del dispositivo.
+        \n\n<font size="22"><b>DISCLAIMER</b></font>\nSensorify si libera da qualsiasi responsabilità a causa di possibili danni alla batteria. Guida offerta dal sito di divulgazione informatica <b>Aranzulla.it</b> di <b>Salvatore Aranzulla</b>.</string>
+    <string name="orientation_block">Bussola</string>
+    <string name="orientation_page">Orientamento</string>
+    <string name="compassTitle">Bussola</string>
+    <string name="proximity_block">Prossimità</string>
+    <string name="proximity_page">Prossimità</string>
+    <string name="proximityText">Prossimità = %1$s</string>
+    <string name="first_open">Grazie per aver scaricato questa app! Se non trovi molti sensori, è perché non li hai! 😟</string>
+    <string name="settings_category_title_generals">Generale</string>
+    <string name="settings_category_title_units">Unità</string>
+    <string name="settings_rotation">Rotazione schermo</string>
+    <string name="settings_rotation_summary_off">Rotazione dello schermo libera.</string>
+    <string name="settings_rotation_summary_on">Disabilita la rotazione dello schermo.</string>
+    <string name="settings_screen">Modalità dello schermo</string>
+    <string name="settings_screen_summary_off">Non mantiene lo schermo sempre acceso.</string>
+    <string name="settings_screen_summary_on">Mantiene lo schermo sempre acceso.</string>
+    <string name="settings_temp">Temperatura</string>
+    <string name="settings_distance">Distanza</string>
+    <string name="settings_distance_summary">Metro</string>
+    <string name="settings_unit_dialog_title">Scegli un\'unità :</string>
+    <string-array name="settings_distance_entries">
+        <item>Metro</item>
+        <item>Piede</item>
+    </string-array>
+    <string name="settings_pressure">Pressione</string>
+    <string name="settings_pressure_summary">Ettopascal | Millibar</string>
+    <string-array name="settings_pressure_entries">
+        <item>Ettopascal | Millibar</item>
+        <item>Atmosfera standard</item>
+        <item>Torr | Millimetro di mercurio</item>
+    </string-array>
+    <string-array name="settings_angle_entries">
+        <item>Grado</item>
+        <item>Radianti</item>
+    </string-array>
+    <string name="pedometer_block">Pedometro</string>
+    <string name="pedometer_page">Pedometro</string>
+    <string name="stepsText">Passi =</string>
+    <string name="gps_page">Posizione GPS</string>
+    <string name="altitude">Altitudine ≃</string>
+    <string name="latitude">Latitudine ≃</string>
+    <string name="longitude">Longitudine ≃</string>
+    <string name="gps_disabled">disabilitato</string>
+    <string name="gps_enabled">abilitato</string>
+    <string name="activate_gps">Se vuoi ottenere le coordinate della tua posizione, per favore attiva il GPS.</string>
+    <string name="open_maps">Apri in Google Maps</string>
+    <string name="open_battery">Apri le impostazioni della batteria</string>
+    <string name="open_wifi">Apri le impostazioni del WiFi</string>
+    <string name="absHumidityText">Umidità assoluta ≃ %1$s</string>
+    <string name="dewPointText">Punto di rugiada ≃ %1$s</string>
+    <string name="humidityText">Umidità = %1$s</string>
+    <string name="tempText">Temperatura = %1$s</string>
+    <string name="mainDev">Sviluppatore : zAlweNy26</string>
+    <string name="rotation_vectors_block">Rotazione</string>
+    <string name="rotation_vectors_page">Vettori di rotazione</string>
+    <string name="wifi_frequency">Frequenza :</string>
+    <string name="privacy_policy">Norme sulla Privacy</string>
+    <string name="share_via">Condividi via</string>
+    <string name="barometerInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un barometro è uno strumento scientifico che viene utilizzato per misurare la pressione dell\'aria in un determinato ambiente.
+        La tendenza alla pressione può prevedere variazioni a breve termine del tempo.
+        Numerose misurazioni della pressione atmosferica vengono utilizzate nell\'ambito dell\'analisi meteorologica superficiale per aiutare a trovare depressioni superficiali,
+        sistemi di pressione e confini frontali.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="accelerometerInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un accelerometro è uno strumento di misura in grado di rilevare e/o misurare l\'accelerazione,
+        effettuando il calcolo della forza rilevata rispetto alla massa dell\'oggetto (forza per unità di massa).
+        Un accelerometro a riposo sulla superficie della Terra misurerà un\'accelerazione dovuta alla gravità terrestre, verso l\'alto (per definizione) di g ≈ 9,81 m/s².\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="linearAccelerationInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        L\'accelerazione lineare è una grandezza vettoriale che rappresenta la variazione della velocità nell\'unità di tempo.
+        In termini differenziali, è pari alla derivata rispetto al tempo del vettore velocità.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="gyroscopeInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un giroscopio è un dispositivo utilizzato per misurare o mantenere l\'orientamento e la velocità angolare.
+        È una ruota che gira o un disco in cui l\'asse di rotazione (asse di rotazione) è libero di assumere qualsiasi orientamento da solo.
+        Durante la rotazione, l\'orientamento di questo asse non viene influenzato dall\'inclinazione o dalla rotazione del supporto, in base alla conservazione del momento angolare.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="luminosityInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un sensore di luce ambientale è un fotorilevatore che viene utilizzato per rilevare la quantità di luce ambientale presente e oscurare opportunamente lo schermo del dispositivo per adattarlo.
+        Ciò evita che lo schermo sia troppo luminoso quando le pupille dell\'utente sono adattate per la visione in una stanza buia o troppo scure quando il dispositivo viene utilizzato all\'aperto durante il giorno.
+        Dimmerare lo schermo su un dispositivo mobile prolunga anche la durata della batteria.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="magnetometerInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un magnetometro è un dispositivo che misura il magnetismo: la direzione, la forza o il cambiamento relativo di un campo magnetico in una posizione particolare.
+        Una bussola è uno di questi dispositivi che misura la direzione di un campo magnetico ambientale, in questo caso il campo magnetico terrestre.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="compassInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Una bussola è uno strumento utilizzato per la navigazione e l\'orientamento che mostra la direzione relativa alle direzioni geografiche cardinali.
+        Di solito, un diagramma chiamato rosa dei venti mostra le direzioni nord, sud, est e ovest sulla faccia della bussola come iniziali abbreviate.
+        Le bussole spesso visualizzano segni per angoli in gradi oltre (o talvolta anziché) alla rosa.
+        Il nord corrisponde a 0 ° e gli angoli aumentano in senso orario, quindi l\'est è 90 ° gradi, il sud è 180 ° e l\'ovest è 270 °.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="pedometerInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un contapassi è un dispositivo che conta ogni passo compiuto da una persona rilevando il movimento delle mani o dei fianchi della persona.
+        Poiché la distanza del passo di ogni persona varia, una calibrazione informale, eseguita dall\'utente,
+        è richiesta se si desidera la presentazione della distanza percorsa in un\'unità di lunghezza (ad esempio in chilometri o miglia),
+        sebbene ora ci siano pedometri che usano l\'elettronica e il software per determinare automaticamente come varia il passo di una persona.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="proximityInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un sensore di prossimità è un sensore in grado di rilevare la presenza di oggetti vicini senza alcun contatto fisico.
+        Un sensore di prossimità emette spesso un campo elettromagnetico o un raggio di radiazione elettromagnetica (infrarossi, per esempio) e cerca cambiamenti nel campo o segnale di ritorno.
+        L\'oggetto rilevato viene spesso indicato come target del sensore di prossimità. Obiettivi di sensori di prossimità diversi richiedono sensori diversi.
+        I sensori di prossimità possono avere un\'alta affidabilità e una lunga durata funzionale a causa dell\'assenza di parti meccaniche e della mancanza di contatto fisico tra il sensore e l\'oggetto rilevato.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="rotationVectorsInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Il vettore di rotazione rileva l\'orientamento del dispositivo rispetto al sistema di coordinate della Terra come unità quaternione.
+        In particolare, il vettore di rotazione rappresenta l\'orientamento del dispositivo come una combinazione di un angolo e un asse,
+        in cui il dispositivo ha ruotato di un angolo θ attorno ad un asse (x, y, z). Gli elementi del vettore di rotazione sono senza unità.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="batteryInfo"><font size="22"><b>Attenzione!</b></font>\n\n
+        Se ritieni che la <b>capacità attuale</b> abbia un valore improbabile o sia pari a 0,
+        è probabilmente causato dai componenti scelti dal produttore del dispositivo.
+        Lo stesso motivo si applica alla <b>capacità totale</b> della batteria.</string>
+    <string name="open_mobile">Apri le impostazioni dei dati mobili</string>
+    <string name="hardwareInfo">Informazioni hardware</string>
+    <string name="softwareInfo">Informazioni software</string>
+    <string name="systemInfo">Pagina dedicata alle informazioni riguardanti le parti software e hardware del dispositivo in uso.</string>
+    <string name="state_text">Stato : %1$s</string>
+    <string name="gpsInfo">Pagina dedicata alle informazioni riguardanti le coordinate rilevate dal segnale GPS del dispositivo in uso.</string>
+    <string name="connectionInfo">Pagina dedicata alle informazioni riguardanti la connessione Wi-Fi e mobile del dispositivo in uso.</string>
+    <string name="connectionType">Tipo : %1$s</string>
+    <string name="connection_type_mobile">Mobile</string>
+    <string name="linear_acceleration_page">Accelerazione lineare</string>
+    <string name="linear_acceleration_block">Accelerazione</string>
+    <string name="distanceText">Distanza percorsa ≃</string>
+    <string name="suppABIs">ABIs supportate :</string>
+    <string name="settings_angle">Angolo</string>
+    <string name="settings_angle_summary">Grado</string>
+    <string name="gravity_block">Gravità</string>
+    <string name="gravity_page">Gravità</string>
+    <string name="gravityInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Il sensore di gravità fornisce un vettore tridimensionale che indica la direzione e l\'entità della gravità.
+        In genere, questo sensore viene utilizzato per determinare l\'orientamento relativo del dispositivo nello spazio.
+        Quando un dispositivo è a riposo, l\'uscita del sensore di gravità dovrebbe essere identica a quella dell\'accelerometro.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="sound_meter_block">Suono</string>
+    <string name="sound_meter_page">Fonometro</string>
+    <string name="soundInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Il fonometro è un misuratore del livello di pressione acustica, ovvero l\'ampiezza dell\'onda di pressione, o onda sonora.
+        Diversamente da come si potrebbe pensare, il fonometro mostra dei valori negativi per quella pressione acustica che l\'orecchio umano non è in grado di sentire.
+        I valori positivi, dunque, dimostrano la pressione acustica udibile dall\'uomo.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="amplitudeText">Ampiezza = %1$d Pa</string>
+    <string name="noiseText">Rumore = %1$s dB</string>
+    <string name="noValue">No</string>
+    <string name="yesValue">Sì</string>
+    <string name="hasNFC">Possiede NFC :</string>
+    <string name="frontVideoResolution">Video frontale :</string>
+    <string name="frontResolution">Foto frontale :</string>
+    <string name="cameraInfo">Risoluzioni fotocamere</string>
+    <string name="backVideoResolution">Video posteriore :</string>
+    <string name="backResolution">Foto posteriore :</string>
+    <string name="mobileOperator">Operatore :</string>
+    <string name="connectionSpeed">Velocità :</string>
+    <string name="aboutDesc">A riguardo</string>
+    <string name="screenshotDesc">Screenshot</string>
+    <string name="shareDesc">Condividi</string>
+    <string name="expandCollapseDesc">Espandi / Riduci</string>
+    <string name="settings_delete_screenshots">Rimuovi gli screenshots</string>
+    <string name="settings_delete_screenshots_summary">Rimuovi tutti gli screenshots fatti dalla cartella dell\'applicazione.</string>
+    <string name="settings_delete_screenshots_question">Vuoi davvero rimuovere tutti e <b>0</b> gli screenshots scattati ?</string>
+    <string name="settings_screenshots_no_files">Non è stato trovato nessuno screenshot.</string>
+    <string name="sensorName">Nome :</string>
+    <string name="temperature_page">Temperatura</string>
+    <string name="humidity_page">Umidità</string>
+    <string name="temperature_block">Temperatura</string>
+    <string name="humidity_block">Umidità</string>
+    <string name="tempInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un sensore di temperatura è l\'apparecchiatura di strumentazione che viene utilizzata per misurare la temperatura o il calore sulla parte operativa della macchina.
+        Il rilevamento della temperatura viene eseguito da un\'apparecchiatura chiamata termocoppia.
+        Una termocoppia è un dispositivo di misurazione della temperatura costituito da due conduttori diversi che si contattano in uno o più punti.
+        Essa produce una tensione quando la temperatura di uno dei punti differisce dalla temperatura di riferimento in altre parti del circuito.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="humidityInfo"><font size="22"><b>Che cos\'è ?</b></font>\n\n
+        Un sensore di umidità (o igrometro) rileva, misura e segnala sia l\'umidità che la temperatura dell\'aria.
+        Il rapporto tra umidità nell\'aria e la più alta quantità di umidità a una particolare temperatura dell\'aria è chiamato umidità relativa.\n\n
+        Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="cpuFreq">Frequenza CPU :</string>
+    <string name="settings_delete_screenshots_title">"Screenshots "</string>
+    <string name="connection_type_plane">Aereo</string>
+    <string name="connection_type_none">Nessuna</string>
+    <string name="sensorNote">NOTA :</string>
+    <string name="android_mac_perms">Da Android 6 (Marshmallow), il sistema operativo non prevede più la possibilità di ottenere l\'indirizzo MAC del dispositivo. Per questo motivo, risulta la costante 02:00:00:00:00:00.</string>
+    <string name="missing_sensors_page">Sensori mancanti</string>
+    <string name="settings_missing_sensors">Il dispositivo non dispone di questi sensori :</string>
+    <string name="hasBluetooth">Possiede Bluetooth :</string>
+    <string name="cleanSuggestion">Tieni il telefono in verticale per una migliore risposta. Riproduci questo audio 4–5 volte per ottenere un risultato migliore !</string>
+    <string name="playPauseDesc">Avvia / Ferma</string>
+    <string name="restart">INSTALLA</string>
+    <string name="retry">RIPROVA</string>
+    <string name="downloadError">Impossibile scaricare l\'aggiornamento !</string>
+    <string name="downloadFinished">L\'aggiornamento è stato scaricato !</string>
+    <string name="battery_amps">Amperaggio :</string>
+    <string name="battery_watt">Wattaggio :</string>
+    <string name="heartbeat_page">Battito cardiaco</string>
+    <string name="heartbeat_block">Pulsazioni</string>
+    <string name="translatorsText">Traduttori :</string>
+    <string name="betaTestersText">Beta Tester :</string>
+    <string name="hasBiometric">Possiede sensore biometrico :</string>
+    <string name="simState">Stato SIM :</string>
+    <string name="of">di %1$s</string>
+    <string name="storageArc">MEMORIA</string>
+    <string name="simAbsent">Assente</string>
+    <string name="simDisabled">Disabilitato</string>
+    <string name="simBlocked">Bloccato</string>
+    <string name="simReady">Pronta</string>
+    <string name="simUnknown">Sconosciuta</string>
+    <string name="isMeasuring">Misurando…</string>
+    <string name="insufficientData">Dati non sufficienti !</string>
+    <string name="settings_precision">Precisione</string>
+    <string name="settings_precision_dialog_title">Scegli un valore :</string>
+    <string name="stopMeasuring">Sembra che tu abbia tolto il dito dalla fotocamera. Posiziona correttamente il dito e riprova.</string>
+    <string name="cleanSpeakerInfo">Usa questo audio per pulire gli altoparlanti del dispositivo da sporco o infiltrazioni di liquidi, come l\'acqua.</string>
+</resources>

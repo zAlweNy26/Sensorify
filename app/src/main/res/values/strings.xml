@@ -1,0 +1,453 @@
+<resources>
+    <!-- App Generals -->
+    <string name="app_name" translatable="false">Sensorify</string>
+    <string name="app_version" translatable="false">v1.0.0</string>
+    <string name="mainDevName" translatable="false">zAlweNy26</string>
+    <string name="testInterstitialID" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="mainInterstitialID" translatable="false">ca-app-pub-8581305580729785/5676190289</string>
+    <string name="first_open">Thanks for downloading this app! If you don\'t find many sensors, it\'s because you don\'t have them! 😟</string>
+    <string name="screenshotDesc">Screenshot</string>
+    <string name="aboutDesc">About</string>
+    <string name="shareDesc">Share</string>
+    <string name="playPauseDesc">Play / Pause</string>
+    <string name="expandCollapseDesc">Expand / Collapse</string>
+    <string name="downloadFinished">The update has just been downloaded !</string>
+    <string name="downloadError">Unable to download the update !</string>
+    <string name="restart">INSTALL</string>
+    <string name="retry">RETRY</string>
+    <!-- Activities ToolBar Titles -->
+    <string name="home_page">Overview</string>
+    <string name="settings_page">Settings</string>
+    <string name="credits_page">Credits</string>
+    <string name="missing_sensors_page">Missing sensors</string>
+    <string name="system_page">System</string>
+    <string name="connection_page">Connection</string>
+    <string name="battery_page">Battery</string>
+    <string name="luminosity_page">Luminosity</string>
+    <string name="gyroscope_page">Gyroscope</string>
+    <string name="barometer_page">Barometer</string>
+    <string name="magnetometer_page">Magnetometer</string>
+    <string name="accelerometer_page">Accelerometer</string>
+    <string name="linear_acceleration_page">Linear acceleration</string>
+    <string name="proximity_page">Proximity</string>
+    <string name="orientation_page">Orientation</string>
+    <string name="pedometer_page">Pedometer</string>
+    <string name="gps_page">GPS location</string>
+    <string name="gravity_page">Gravity</string>
+    <string name="sound_meter_page">Sound meter</string>
+    <string name="rotation_vectors_page">Rotation vectors</string>
+    <string name="temperature_page">Temperature</string>
+    <string name="humidity_page">Humidity</string>
+    <string name="heartbeat_page">Heartbeat</string>
+    <!-- Home Blocks Titles -->
+    <string name="system_block">System</string>
+    <string name="connection_block">Connection</string>
+    <string name="battery_block">Battery</string>
+    <string name="luminosity_block">Luminosity</string>
+    <string name="gyroscope_block">Gyroscope</string>
+    <string name="barometer_block">Pressure</string>
+    <string name="magnetometer_block">Magnet</string>
+    <string name="accelerometer_block">Accelerometer</string>
+    <string name="linear_acceleration_block">Acceleration</string>
+    <string name="proximity_block">Proximity</string>
+    <string name="orientation_block">Compass</string>
+    <string name="pedometer_block">Pedometer</string>
+    <string name="gps_block" translatable="false">GPS</string>
+    <string name="gravity_block">Gravity</string>
+    <string name="sound_meter_block">Sound</string>
+    <string name="rotation_vectors_block">Rotation</string>
+    <string name="temperature_block">Temperature</string>
+    <string name="humidity_block">Humidity</string>
+    <string name="heartbeat_block">Pulsation</string>
+    <!-- General Block Infos -->
+    <string name="block_info">Informations</string>
+    <string name="block_details">Details</string>
+    <string name="unknownValue">Unknown</string>
+    <string name="state_text">State : %1$s</string>
+    <string name="unavailableValue">Unavailable</string>
+    <string name="nullValue" translatable="false">0</string>
+    <string name="yesValue">Yes</string>
+    <string name="noValue">No</string>
+    <string name="of">of %1$s</string>
+    <string name="share_via">Share via</string>
+    <!-- General Sensors Activity -->
+    <string name="sensorName">Name :</string>
+    <string name="sensorVendor">Vendor :</string>
+    <string name="sensorVersion">Version :</string>
+    <string name="sensorPowerUsage">Power consumption :</string>
+    <string name="sensorResolution">Maximum resolution :</string>
+    <string name="sensorRange">Maximum range :</string>
+    <string name="valueX" translatable="false">X = %1$s</string>
+    <string name="valueY" translatable="false">Y = %1$s</string>
+    <string name="valueZ" translatable="false">Z = %1$s</string>
+    <string name="sensorNote">NOTE :</string>
+    <!-- System Activity -->
+    <string name="systemInfo">Page dedicated to the informations regarding the software and hardware parts of the device in use.</string>
+
+    <string name="softwareInfo">Software informations</string>
+    <string name="hardwareInfo">Hardware informations</string>
+    <string name="cameraInfo">Cameras resolutions</string>
+
+    <string name="androidVersion">Android version :</string>
+    <string name="sdkVersion">SDK version :</string>
+    <string name="secPatch">Security patch :</string>
+    <string name="interfaceVersion">Interface :</string>
+    <string name="androidID">Android ID :</string>
+    <string name="suppABIs">Supported ABIs :</string>
+    <string name="brand">Brand :</string>
+
+    <string name="manufacturer">Manufacturer :</string>
+    <string name="model">Model :</string>
+    <string name="cpu" translatable="false">CPU :</string>
+    <string name="cpuFreq">CPU frequency :</string>
+    <string name="ram" translatable="false">RAM :</string>
+    <string name="storage">Storage :</string>
+    <string name="hasBluetooth">Owns Bluetooth :</string>
+    <string name="hasNFC">Owns NFC :</string>
+    <string name="hasBiometric">Owns biometric sensor :</string>
+    <string name="frontResolution">Front picture :</string>
+    <string name="backResolution">Back picture :</string>
+    <string name="frontVideoResolution">Front video :</string>
+    <string name="backVideoResolution">Back video :</string>
+    <string name="screenSize">Screen size :</string>
+    <string name="screenDensity">Screen density :</string>
+    <string name="screenResolution">Screen resolution :</string>
+
+    <string name="ramArc" translatable="false">RAM</string>
+    <string name="storageArc">STORAGE</string>
+    <!-- Connection Activity -->
+    <string name="connectionInfo">Page dedicated to the informations regarding Wi-Fi and mobile connection of the device in use.</string>
+
+    <string name="connectionType">Type : %1$s</string>
+    <string name="connection_type_mobile">Mobile</string>
+    <string name="connection_type_wifi" translatable="false">Wi-Fi</string>
+    <string name="connection_type_plane">Airplane</string>
+    <string name="connection_type_none">None</string>
+
+    <string name="simAbsent">Absent</string>
+    <string name="simDisabled">Disabled</string>
+    <string name="simBlocked">Blocked</string>
+    <string name="simReady">Ready</string>
+    <string name="simUnknown">Unknown</string>
+
+    <string name="open_wifi">Open Wi-Fi settings</string>
+    <string name="open_mobile">Open mobile data settings</string>
+    <string name="wifi_android_perms">From Android 8 (Oreo), the operating system requests location access for connection informations.</string>
+    <string name="android_mac_perms">From Android 6 (Marshmallow), the operating system no longer provides the ability to obtain the MAC address of the device. For this reason, the constant 02:00:00:00:00:00 results.</string>
+    <string name="wifi_state_value_on">online</string>
+    <string name="wifi_state_value_off">offline</string>
+    <string name="wifi_ssid">Name (SSID) :</string>
+    <string name="wifi_bssid" translatable="false">BSSID :</string>
+    <string name="wifi_ip">IP address :</string>
+    <string name="wifi_mac">MAC address :</string>
+    <string name="wifi_rssi" translatable="false">RSSI :</string>
+    <string name="wifi_frequency">Frequency :</string>
+    <!--<string name="connectionIMEI" translatable="false">IMEI :</string>-->
+    <string name="mobileOperator">Operator :</string>
+    <string name="simState">SIM state :</string>
+    <string name="connectionSpeed">Speed :</string>
+    <!-- GPS Activity -->
+    <string name="gpsInfo">Page dedicated to the informations regarding the coordinates detected by the GPS signal of the device in use.</string>
+
+    <string name="activate_gps">If you want to get the coordinates of your position, please activate the GPS.</string>
+    <string name="open_maps">Open in Google Maps</string>
+    <string name="gps_enabled">enabled</string>
+    <string name="gps_disabled">disabled</string>
+    <string name="latitude">Latitude ≃</string>
+    <string name="longitude">Longitude ≃</string>
+    <string name="altitude">Altitude ≃</string>
+    <!-- Battery Activity -->
+    <string name="batteryInfo"><font size="22"><b>Attention!</b></font>\n\n
+        If you find that the <b>current capacity</b> has an unlikely value or it\'s even 0,
+        it is probably caused by the components chosen by the device manufacturer.
+        This same reason applies to the battery <b>total capacity</b>.</string>
+
+    <string name="open_battery">Open battery settings</string>
+    <string name="battery_percentage">Percentage : %1$d %%</string>
+    <string name="battery_current_capacity">Current capacity : %1$d mAh</string>
+    <string name="battery_technology">Technology :</string>
+    <string name="battery_state">State :</string>
+    <string name="battery_charge_mode">Charge mode :</string>
+    <string name="battery_temperature">Temperature :</string>
+    <string name="battery_volt">Voltage :</string>
+    <string name="battery_amps">Amperage :</string>
+    <string name="battery_watt">Wattage :</string>
+    <string name="battery_health">Health :</string>
+    <string name="battery_capacity">Total capacity :</string>
+
+    <string-array name="battery_states">
+        <item>Full</item>
+        <item>Charging</item>
+        <item>Not charging</item>
+        <item>Unknown</item>
+    </string-array>
+    <string-array name="battery_health_types">
+        <item>Good</item>
+        <item>Overheated</item>
+        <item>Overcharged</item>
+        <item>Cold</item>
+        <item>Almost dead</item>
+        <item>Unknown</item>
+    </string-array>
+    <string-array name="battery_charge_modes">
+        <item>None</item>
+        <item>Alternate current (AC)</item>
+        <item>Via USB</item>
+        <item>Wireless</item>
+    </string-array>
+
+    <string name="battery_example">Example : Xiaomi Mi 8 -> 3400 mAh</string>
+    <string name="battery_text_input">Nominal capacity (mAh)</string>
+    <string name="battery_real_percentage">Real percentage of charge : %1$d %%</string>
+
+    <string name="battery_advice">If the difference &lt;b>( %1$d )&lt;/b> between the percentage of battery
+        charge shown and the actual percentage of battery charge is equal to or greater than &lt;b>10&lt;/b>,
+        we recommend following the guide below regarding battery calibration.</string>
+
+    <string name="battery_tutorial">Calibration guide</string>
+
+    <string name="battery_tutorial_text"><font size="22"><b>1.</b></font> Drain your smartphone battery until it turns itself off. Next, you need to turn the phone back on and, if it stays on, you have to wait for it to turn itself off again. Repeat the operation until the point that when you turn the smartphone back on, it turns off immediately.
+        \n\n<font size="22"><b>2.</b></font> At this point put the device on charge (from off) and wait for the battery indicator to reach 100%. Then let the phone charge for another one/two hours and ignore any messages that appear on the screen. This is an <b>IMPORTANT</b> step but you don\'t have to overdo it: after the due time, unplug the phone from the charge or you could damage the battery.
+        \n\n<font size="22"><b>3.</b></font> Now remove the battery from the smartphone for <b>10-15</b> minutes and then reinsert it. If your smartphone does not allow you to remove the battery, keep the device off for the same amount of time.
+        \n\n<font size="22"><b>4.</b></font> Once the operation is complete, put the phone back in charge and wait <b>5</b> minutes, then turn on the smartphone, wait for the main Android screen to be usable and disconnect the charger. This way you should be able to calibrate the device battery.
+        \n\n<font size="22"><b>DISCLAIMER</b></font>\nSensorify relieves itself of any responsibility due to possible damage to the battery. Guide offered by <b>Salvatore Aranzulla</b>\'s computer science site <b>Aranzulla.it</b>.
+    </string>
+    <!-- Luminosity Activity -->
+    <string name="luminosityText">Luminosity = %1$s lx</string>
+
+    <string name="luminosityInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        An ambient light sensor is a photodetector that is used to sense the amount of ambient light present, and appropriately dim the device\'s screen to match it.
+        This avoids having the screen be too bright when the user\'s pupils are adapted for vision in a dark room, or too dim when the device is used outdoors in the daytime.
+        Dimming the screen on a mobile device also prolongs the lifetime of the battery.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Barometer Activity -->
+    <string name="pressureText">Pressure = %1$s</string>
+
+    <string name="barometerInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A barometer is a scientific instrument that is used to measure air pressure in a certain environment.
+        Pressure tendency can forecast short term changes in the weather.
+        Many measurements of air pressure are used within surface weather analysis to help find surface troughs, pressure systems and frontal boundaries.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Gyroscope Activity -->
+    <string name="gyroscopeInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A gyroscope is a device used for measuring or maintaining orientation and angular velocity.
+        It is a spinning wheel or disc in which the axis of rotation (spin axis) is free to assume any orientation by itself.
+        When rotating, the orientation of this axis is unaffected by tilting or rotation of the mounting, according to the conservation of angular momentum.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Rotation Vectors Activity -->
+    <string name="rotationVectorsInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        The rotation-vector sensor the orientation of the device with respect to Earth\'s coordinate system as a unit quaternion.
+        Specifically, the rotation vector represents the orientation of the device as a combination of an angle and an axis,
+        in which the device has rotated through an angle θ around an axis (x, y, z). The elements of the rotation vector are unitless.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Magnetometer Activity -->
+    <string name="magnetometerInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A magnetometer is a device that measures magnetism - the direction, strength, or relative change of a magnetic field at a particular location.
+        A compass is one such device that measures the direction of an ambient magnetic field, in this case, the Earth\'s magnetic field.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Proximity Activity -->
+    <string name="proximityText">Proximity = %1$s</string>
+
+    <string name="proximityInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A proximity sensor is a sensor able to detect the presence of nearby objects without any physical contact.
+        A proximity sensor often emits an electromagnetic field or a beam of electromagnetic radiation (infrared, for instance), and looks for changes in the field or return signal.
+        The object being sensed is often referred to as the proximity sensor\'s target. Different proximity sensor targets demand different sensors.
+        Proximity sensors can have a high reliability and long functional life because of the absence of mechanical parts and lack of physical contact between the sensor and the sensed object.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Orientation Activity -->
+    <string name="compassTitle">Compass</string>
+
+    <string name="compassInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A compass is an instrument used for navigation and orientation that shows direction relative to the geographic cardinal directions.
+        Usually, a diagram called a compass rose shows the directions north, south, east, and west on the compass face as abbreviated initials.
+        Compasses often display markings for angles in degrees in addition to (or sometimes instead of) the rose.
+        North corresponds to 0°, and the angles increase clockwise, so east is 90° degrees, south is 180°, and west is 270°.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+
+    <string name="pitch" translatable="false">Pitch = %1$s</string>
+    <string name="roll" translatable="false">Roll = %1$s</string>
+    <string name="azimuth" translatable="false">Azimuth = %1$s</string>
+    <!-- Heartbeat Activity -->
+    <string name="stopMeasuring">It looks like you took your finger off the camera. Place your finger correctly and try again.</string>
+    <string name="insufficientData">Insufficient data !</string>
+
+    <string name="heartbeatInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A photoplethysmogram (PPG) is an optically obtained plethysmogram that can be used to detect blood volume changes in the microvascular bed of tissue.
+        A PPG is often obtained by using a pulse oximeter which illuminates the skin and measures changes in light absorption.
+        To measure the heart rate, therefore, we will simulate a PPG using the camera and the flash.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Pedometer Activity -->
+    <string name="stepsText">Steps =</string>
+    <string name="distanceText">Distance traveled ≃</string>
+
+    <string name="pedometerInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A pedometer is a device that counts each step a person takes by detecting the motion of the person\'s hands or hips.
+        Because the distance of each person\'s step varies, an informal calibration, performed by the user,
+        is required if presentation of the distance covered in a unit of length (such as in kilometers or miles) is desired,
+        though there are now pedometers that use electronics and software to automatically determine how a person\'s step varies.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Sound Meter Activity -->
+    <string name="noiseText">Noise = %1$s dB</string>
+    <string name="amplitudeText">Amplitude = %1$d Pa</string>
+    <string name="cleanSuggestion">Hold your phone vertically for better response. Play this audio 4–5 times for a better result !</string>
+    <string name="cleanSpeakerInfo">Use this audio to clean the device speakers from dirt or liquid infiltration, like water.</string>
+
+    <string name="soundInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        The sound level meter is a sound pressure level meter, that is the amplitude of the pressure wave, or sound wave.
+        Unlike what one might think, the sound level meter shows negative values for that acoustic pressure that the human ear is unable to hear.
+        The positive values, therefore, demonstrate the acoustic pressure audible to man.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Acceleration Activity -->
+    <string name="accelerometerInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        An accelerometer is a measuring instrument capable of detecting and/or measuring acceleration,
+        by calculating the detected force with respect to the mass of the object (force per unit of mass).
+        An accelerometer at rest on the surface of the Earth will measure an acceleration due to Earth\'s gravity, straight upwards (by definition) of g ≈ 9.81 m/s².\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Linear Acceleration Activity -->
+    <string name="linearAccelerationInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        The linear acceleration is a vector quantity representing the variation of speed in the unit of time.
+        In differential terms, it is equal to the derivative with respect to the time of the velocity vector.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Gravity Activity -->
+    <string name="gravityInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        The gravity sensor provides a three dimensional vector indicating the direction and magnitude of gravity.
+        Typically, this sensor is used to determine the device\'s relative orientation in space.
+        When a device is at rest, the output of the gravity sensor should be identical to that of the accelerometer.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Temperature Activity -->
+    <string name="tempText">Temperature = %1$s</string>
+    <string name="dewPointText">Dew point ≃ %1$s</string>
+
+    <string name="tempInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A temperature sensor is the instrumentation equipment which is used to measure temperature or heat on the operating machine part.
+        Temperature sensing is performed by equipment called Thermocouple.
+        A thermocouple is a temperature-measuring device consisting of two dissimilar conductors that contact each other at one or more points.
+        It produces a voltage when the temperature of one of the points differs from the reference temperature at other parts of the circuit.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Humidity Activity -->
+    <string name="humidityText">Humidity = %1$s</string>
+    <string name="absHumidityText">Absolute humidity ≃ %1$s</string>
+
+    <string name="humidityInfo"><font size="22"><b>What is it ?</b></font>\n\n
+        A humidity sensor (or hygrometer) senses, measures and reports both moisture and air temperature.
+        The ratio of moisture in the air to the highest amount of moisture at a particular air temperature is called relative humidity.\n\n
+        Explanation offered by the most famous online encyclopedia, <b>Wikipedia.org</b></string>
+    <!-- Credits Activity and Privacy Activity -->
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="mainDev">Developer : zAlweNy26</string>
+    <string name="mainDevWebSite" translatable="false">zalweny26.github.io</string>
+    <string name="translatorsText">Translators :</string>
+    <string name="translatorsList" translatable="false">Hellis</string>
+    <string name="betaTestersText">Beta Testers :</string>
+    <string name="betaTestersList" translatable="false">ThatsWave\nFedeDC512\nxClaudio\nzLory06</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_missing_sensors">The device does not have these sensors :</string>
+    <string name="settings_category_title_theme">Theme</string>
+    <string name="settings_category_title_units">Units</string>
+    <string name="settings_category_title_generals">Generals</string>
+
+    <string name="settings_screenshots_no_files">No screenshots were found.</string>
+
+    <string name="settings_delete_screenshots">Remove screenshots</string>
+    <string name="settings_delete_screenshots_title">Screenshots</string>
+    <string name="settings_delete_screenshots_summary">Remove all the screenshots made from the app\'s folder.</string>
+    <string name="settings_delete_screenshots_question">Do you really want to remove all <b>0</b> screenshots taken ?</string>
+
+    <string name="settings_theme">Change theme</string>
+    <string name="settings_theme_summary_on">Set up the application light theme.</string>
+    <string name="settings_theme_summary_off">Set up the application dark theme.</string>
+
+    <string name="settings_battery">Based on battery</string>
+    <string name="settings_battery_summary_on">Set up the dark theme when the battery percentage is under 30 %.</string>
+    <string name="settings_battery_summary_off">Doesn\'t set the dark theme based on battery percentage.</string>
+
+    <string name="settings_time">Based on time</string>
+    <string name="settings_time_summary_on">Set up the dark theme when it\'s later than 20:00 (08:00 pm).</string>
+    <string name="settings_time_summary_off">Doesn\'t set the dark theme based on local time.</string>
+
+    <string name="settings_language">Language</string>
+    <string name="settings_language_summary">Change the application language.</string>
+    <string name="settings_language_dialog_title">Choose a language :</string>
+    <string name="settings_language_default" translatable="false">en</string>
+    <string-array name="settings_language_entries">
+        <item>English</item>
+        <item>Italiano</item>
+        <item>Deutsch</item>
+        <item>Español</item>
+        <item>Français</item>
+    </string-array>
+    <array name="settings_language_values">
+        <item>en</item>
+        <item>it</item>
+        <item>de</item>
+        <item>es</item>
+        <item>fr</item>
+    </array>
+
+    <string name="settings_screen">Screen mode</string>
+    <string name="settings_screen_summary_on">Keep the screen always on.</string>
+    <string name="settings_screen_summary_off">Doesn\'t keep the screen always on.</string>
+
+    <string name="settings_rotation">Screen rotation</string>
+    <string name="settings_rotation_summary_on">Disables the screen rotation.</string>
+    <string name="settings_rotation_summary_off">Free screen rotation.</string>
+
+    <string name="settings_unit_dialog_title">Choose a unit :</string>
+
+    <string name="settings_precision">Precision</string>
+    <string name="settings_precision_dialog_title">Choose a value :</string>
+
+    <string name="settings_temp">Temperature</string>
+    <string name="settings_temp_summary" translatable="false">Celsius</string>
+    <string name="settings_temp_default" translatable="false">°C</string>
+    <string-array name="settings_temp_entries">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+        <item>Kelvin</item>
+    </string-array>
+    <array name="settings_temp_values">
+        <item>°C</item>
+        <item>°F</item>
+        <item>K</item>
+    </array>
+
+    <string name="settings_distance">Distance</string>
+    <string name="settings_distance_summary">Meter</string>
+    <string name="settings_distance_default" translatable="false">m</string>
+    <string-array name="settings_distance_entries">
+        <item>Meter</item>
+        <item>Foot</item>
+    </string-array>
+    <array name="settings_distance_values">
+        <item>m</item>
+        <item>ft</item>
+    </array>
+
+    <string name="settings_pressure">Pressure</string>
+    <string name="settings_pressure_summary">Hectopascals | Millibar</string>
+    <string name="settings_pressure_default" translatable="false">hPa</string>
+    <string-array name="settings_pressure_entries">
+        <item>Hectopascals | Millibar</item>
+        <item>Standard atmosphere</item>
+        <item>Torr | Millimeter of mercury</item>
+    </string-array>
+    <array name="settings_pressure_values">
+        <item>hPa</item>
+        <item>atm</item>
+        <item>torr</item>
+    </array>
+
+    <string name="settings_angle">Angle</string>
+    <string name="settings_angle_summary">Degree</string>
+    <string name="settings_angle_default" translatable="false">°</string>
+    <string-array name="settings_angle_entries">
+        <item>Degree</item>
+        <item>Radians</item>
+    </string-array>
+    <array name="settings_angle_values">
+        <item>°</item>
+        <item>rad</item>
+    </array>
+    <string name="isMeasuring">Measuring…</string>
+</resources>

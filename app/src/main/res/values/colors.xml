@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00E673</color>
+    <color name="colorPrimaryDark">#00873F</color>
+    <color name="colorAccentDark">#202020</color>
+    <color name="colorAccentLight">#FFFFFF</color>
+    <color name="totalBlack">#000000</color>
+    <!-- Chart colors -->
+    <color name="xAxisColor">#00C800</color>
+    <color name="yAxisColor">#C80000</color>
+    <color name="zAxisColor">#0000C8</color>
+    <color name="monoAxisColor">#CDCD00</color>
+</resources>

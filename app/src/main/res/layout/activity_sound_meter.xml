@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blockLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sensors.SoundMeterActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/mainColor"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/sound_meter_page"
+            android:textColor="?attr/toolBarTextColor"
+            android:textColorHighlight="?attr/toolBarTextColor"
+            android:textColorHint="?attr/toolBarTextColor"
+            android:textColorLink="?attr/toolBarTextColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="1px"
+            app:autoSizeTextType="uniform" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/blockScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/backgroundColor"
+        android:scrollbarThumbHorizontal="@android:color/transparent"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/container_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/captureButton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/screenshotDesc"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/screenshot"
+                        app:tint="?attr/iconColor" />
+
+                    <ImageButton
+                        android:id="@+id/showInfoButton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/aboutDesc"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/shareButton"
+                        app:layout_constraintStart_toEndOf="@+id/captureButton"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/question_mark"
+                        app:tint="?attr/iconColor" />
+
+                    <ImageButton
+                        android:id="@+id/shareButton"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/shareDesc"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/share"
+                        app:tint="?attr/iconColor" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/sensorInfoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    app:el_duration="750"
+                    app:el_expanded="false"
+                    app:el_parallax="0">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/soundInfo"
+                        android:textColor="?attr/textColor"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="?attr/textColor"
+                        android:textColorLink="?attr/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp"
+                        android:autoLink="web"
+                        android:linksClickable="true"
+                        app:autoSizeMaxTextSize="16sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeStepGranularity="1px"
+                        app:autoSizeTextType="uniform" />
+
+                </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/container_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/blockInformations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/block_info"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="?attr/textColor"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform" />
+
+                <include layout="@layout/divider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/noiseText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="@string/noiseText"
+                        android:textColor="?attr/textColor"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="?attr/textColor"
+                        android:textColorLink="?attr/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:autoSizeMaxTextSize="20sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeStepGranularity="1px"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--<TextView
+                        android:id="@+id/noiseValue"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/unknownValue"
+                        android:textColor="?attr/textColor"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="?attr/textColor"
+                        android:textColorLink="?attr/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:autoSizeMaxTextSize="20sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeStepGranularity="1px"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintEnd_toStartOf="@+id/sensorIcon"
+                        app:layout_constraintStart_toEndOf="@+id/noiseText"
+                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <TextView
+                        android:id="@+id/amplitudeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="@string/amplitudeText"
+                        android:textColor="?attr/textColor"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="?attr/textColor"
+                        android:textColorLink="?attr/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:autoSizeMaxTextSize="16sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeStepGranularity="1px"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <!--<TextView
+                        android:id="@+id/amplitudeValue"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/unknownValue"
+                        android:textColor="?attr/textColor"
+                        android:textColorHighlight="@color/colorPrimary"
+                        android:textColorHint="?attr/textColor"
+                        android:textColorLink="?attr/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:autoSizeMaxTextSize="16sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeStepGranularity="1px"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sensorIcon"
+                        app:layout_constraintStart_toEndOf="@+id/amplitudeText" />-->
+
+                    <ImageView
+                        android:id="@+id/sensorIcon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:contentDescription="@string/sound_meter_page"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_sound_meter" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chartLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/container_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/liveChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.github.mikephil.charting.charts.LineChart>
+
+            </LinearLayout>
+
+            <!--<Button
+                android:id="@+id/clearSpeakerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/block_bg"
+                android:text="@string/cleanSpeakers"
+                android:textColor="?attr/toolBarTextColor"
+                android:textColorHighlight="?attr/toolBarTextColor"
+                android:textColorHint="?attr/toolBarTextColor"
+                android:textColorLink="?attr/toolBarTextColor"
+                android:textStyle="bold"
+                android:textSize="18sp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/container_bg"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/cleanSpeakerInfo"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="?attr/textColor"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/block_bg"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <ImageButton
+                        android:id="@+id/audioButton"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/playPauseDesc"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/play_to_pause"
+                        app:tint="?attr/backgroundColor" />
+
+                    <SeekBar
+                        android:id="@+id/audioBar"
+                        android:layout_width="match_parent"
+                        android:thumbTint="?attr/backgroundColor"
+                        android:progressDrawable="@drawable/seekbar_style"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/cleanSuggestion"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="?attr/textColor"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+           </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

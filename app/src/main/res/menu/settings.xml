@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:orderInCategory="100"
+        android:title="@string/block_info"
+        android:icon="@drawable/ic_dots_vertical"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/action_missing_sensors"
+                android:icon="@drawable/ic_eye_slash"
+                android:title="@string/missing_sensors_page" />
+            <item
+                android:id="@+id/action_credits"
+                android:icon="@drawable/ic_info"
+                android:title="@string/credits_page" />
+            <item
+                android:id="@+id/action_privacy_policy"
+                android:icon="@drawable/ic_note_edit"
+                android:title="@string/privacy_policy" />
+        </menu>
+
+    </item>
+
+</menu>

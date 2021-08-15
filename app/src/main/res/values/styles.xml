@@ -1,0 +1,73 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+
+        <item name="android:navigationBarColor">@color/colorAccentLight</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowDisablePreview">true</item>
+
+        <item name="preferenceTheme">@style/CustomPreferenceThemeOverlay</item>
+
+        <item name="dialogTheme">@style/lightDialogAlertTheme</item>
+        <item name="alertDialogTheme">@style/lightDialogAlertTheme</item>
+
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+
+        <item name="mainColor">@color/colorPrimary</item>
+        <item name="darkMainColor">@color/colorPrimaryDark</item>
+        <item name="toolBarTextColor">@color/colorAccentDark</item>
+        <item name="toolBarIconColor">@color/colorAccentDark</item>
+        <item name="backgroundColor">@color/colorAccentLight</item>
+        <item name="textColor">@color/colorAccentDark</item>
+        <item name="iconColor">@color/colorAccentDark</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+
+        <item name="android:navigationBarColor">@color/colorAccentDark</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowDisablePreview">true</item>
+
+        <item name="preferenceTheme">@style/CustomPreferenceThemeOverlay</item>
+
+        <item name="dialogTheme">@style/darkDialogAlertTheme</item>
+        <item name="alertDialogTheme">@style/darkDialogAlertTheme</item>
+
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+
+        <item name="mainColor">@color/colorPrimary</item>
+        <item name="darkMainColor">@color/colorPrimaryDark</item>
+        <item name="toolBarTextColor">@color/colorAccentDark</item>
+        <item name="toolBarIconColor">@color/colorAccentDark</item>
+        <item name="backgroundColor">@color/colorAccentDark</item>
+        <item name="textColor">@color/colorAccentLight</item>
+        <item name="iconColor">@color/colorAccentLight</item>
+    </style>
+
+    <style name="CustomPreferenceThemeOverlay" parent="PreferenceThemeOverlay">
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="lightDialogAlertTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">?attr/textColor</item>
+        <item name="android:windowBackground">?attr/backgroundColor</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="darkDialogAlertTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">?attr/textColor</item>
+        <item name="android:windowBackground">?attr/backgroundColor</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!--<style name="buttonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/button_style</item>
+    </style>-->
+</resources>

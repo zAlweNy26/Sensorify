@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    tools:context=".CreditsActivity">
+
+    <!--<LinearLayout
+        android:id="@+id/creditsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:orientation="vertical"
+        android:visibility="visible">-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/mainColor"
+            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/credits_page"
+                android:textColor="?attr/toolBarTextColor"
+                android:textColorHighlight="?attr/toolBarTextColor"
+                android:textColorHint="?attr/toolBarTextColor"
+                android:textColorLink="?attr/toolBarTextColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="1px"
+                app:autoSizeTextType="uniform" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarThumbHorizontal="@android:color/transparent"
+            android:scrollbarThumbVertical="@android:color/transparent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/app_name"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="40sp"
+                    app:autoSizeMinTextSize="20sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/versionNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/app_version"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:autoLink="web"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:linksClickable="true"
+                    android:maxLines="1"
+                    android:text="@string/mainDevWebSite"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--<Button
+                    android:id="@+id/privacyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/container_bg"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:padding="15dp"
+                    android:text="@string/privacy_policy"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="20sp"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform" />-->
+
+                <ImageView
+                    android:layout_width="224dp"
+                    android:layout_height="224dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_sensorify" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@string/mainDev"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/translators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/translatorsText"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/betaTesters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/betaTestersText"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    <!--</LinearLayout>-->
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/privacyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/privacyTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/privacy_policy"
+            android:textColor="?attr/textColor"
+            android:textColorHighlight="?attr/textColor"
+            android:textColorHint="?attr/textColor"
+            android:textColorLink="?attr/textColor"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="15sp"
+            app:autoSizeStepGranularity="1px"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@+id/closeButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/closeDesc"
+            android:focusable="true"
+            android:tint="?attr/toolBarIconColor"
+            app:elevation="0dp"
+            app:fabCustomSize="32dp"
+            app:hoveredFocusedTranslationZ="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pressedTranslationZ="0dp"
+            app:srcCompat="@drawable/ic_close" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:background="?attr/backgroundColor"
+            android:scrollbarThumbHorizontal="@android:color/transparent"
+            android:scrollbarThumbVertical="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/privacyTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="@string/privacy_policy_text"
+                    android:textColor="?attr/textColor"
+                    android:textColorHighlight="?attr/textColor"
+                    android:textColorHint="?attr/textColor"
+                    android:textColorLink="?attr/textColor"
+                    android:textSize="18sp"
+                    android:autoLink="web|email"
+                    android:linksClickable="true"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeStepGranularity="1px"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</LinearLayout>

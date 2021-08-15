@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/mainColor"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/settings_page"
+            android:textColor="?attr/toolBarTextColor"
+            android:textColorHighlight="?attr/toolBarTextColor"
+            android:textColorHint="?attr/toolBarTextColor"
+            android:textColorLink="?attr/toolBarTextColor"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="1px"
+            app:autoSizeTextType="uniform" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/settings_fragment"
+        android:isScrollContainer="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor" />
+
+</LinearLayout>
