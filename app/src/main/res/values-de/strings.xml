@@ -316,4 +316,9 @@
     <string name="settings_precision_dialog_title">Wählen Sie einen Wert :</string>
     <string name="stopMeasuring">Anscheinend hast du deinen Finger von der Kamera genommen. Platzieren Sie Ihren Finger richtig und versuchen Sie es erneut.</string>
     <string name="cleanSpeakerInfo">Verwenden Sie dieses Audio, um die Lautsprecher des Geräts von Schmutz oder eingedrungenen Flüssigkeiten wie Wasser zu reinigen.</string>
+    <string name="heartbeatInfo"><font size="22"><b>Was ist das?</b></font>\n\n
+         Ein Photoplethysmogramm (PPG) ist ein optisch gewonnenes Plethysmogramm, mit dem Veränderungen des Blutvolumens im mikrovaskulären Gewebebett erkannt werden können.
+         Ein PPG wird oft unter Verwendung eines Pulsoximeters erhalten, das die Haut beleuchtet und Veränderungen der Lichtabsorption misst.
+         Um die Herzfrequenz zu messen, simulieren wir daher ein PPG mit der Kamera und dem Blitz.\n\n
+         Erklärung der bekanntesten Online-Enzyklopädie, <b>Wikipedia.org</b></string>
 </resources>

@@ -315,4 +315,9 @@
     <string name="settings_precision_dialog_title">Elija un valor :</string>
     <string name="stopMeasuring">Parece que sacaste el dedo de la cámara. Coloque su dedo correctamente y vuelva a intentarlo.</string>
     <string name="cleanSpeakerInfo">Utilice este audio para limpiar los altavoces del dispositivo de la suciedad o la infiltración de líquidos, como el agua.</string>
+    <string name = "heartbeatInfo"><font size="22"><b>¿Qué es?</b></font>\n\n
+         Un fotopletismograma (PPG) es un pletismograma obtenido ópticamente que se puede utilizar para detectar cambios en el volumen de sangre en el lecho de tejido microvascular.
+         Un PPG a menudo se obtiene mediante el uso de un oxímetro de pulso que ilumina la piel y mide los cambios en la absorción de la luz.
+         Para medir la frecuencia cardíaca, por lo tanto, simularemos un PPG usando la cámara y el flash.\n\n
+         Explicación ofrecida por la enciclopedia en línea más famosa, <b>Wikipedia.org</b></string>
 </resources>
