@@ -1,35 +1,32 @@
 package it.alwe.sensorify.sensors
 
 import android.Manifest
-import android.R.attr
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.TextView
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
+import it.alwe.sensorify.AvgRedAnalyzer
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
 import kotlinx.android.synthetic.main.activity_heartbeat.*
-import java.util.concurrent.atomic.AtomicBoolean
-import android.view.WindowManager
-import android.widget.TextView
-import androidx.camera.core.*
-import androidx.core.view.marginBottom
-import com.google.android.material.snackbar.Snackbar
-import it.alwe.sensorify.AvgRedAnalyzer
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import android.R.attr.right
-
-import android.R.attr.left
-import android.view.View
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import java.util.concurrent.atomic.AtomicBoolean
 
 
 // TODO : https://stackoverflow.com/questions/28115049/android-heart-rate-monitor-code-explanation
