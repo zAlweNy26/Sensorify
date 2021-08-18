@@ -1,7 +1,6 @@
 package it.alwe.sensorify
 
 import android.app.Application
-import com.google.android.gms.ads.*
 import com.yariksoffice.lingver.Lingver
 import com.yariksoffice.lingver.store.PreferenceLocaleStore
 import java.util.*
@@ -20,7 +19,7 @@ class MainApp : Application() {
         val store = PreferenceLocaleStore(this, Locale.getDefault())
         Lingver.init(this, store)
 
-        MobileAds.initialize(this) {}
+        /*MobileAds.initialize(this) {}
 
         val requestConfigurationBuilder = RequestConfiguration.Builder()
             .setTestDeviceIds(arrayListOf(
@@ -28,6 +27,6 @@ class MainApp : Application() {
                 "D88841A06FB3B7B7314D4A021C890B99"))
             .build()
 
-        MobileAds.setRequestConfiguration(requestConfigurationBuilder)
+        MobileAds.setRequestConfiguration(requestConfigurationBuilder)*/
     }
 }

@@ -309,8 +309,6 @@
     <string name="simDisabled">Desactivada</string>
     <string name="simBlocked">Obstruida</string>
     <string name="simReady">Lista</string>
-    <string name="isMeasuring">Medición…</string>
-    <string name="insufficientData">Datos insuficientes !</string>
     <string name="settings_precision">Precisión</string>
     <string name="settings_precision_dialog_title">Elija un valor :</string>
     <string name="stopMeasuring">Parece que sacaste el dedo de la cámara. Coloque su dedo correctamente y vuelva a intentarlo.</string>

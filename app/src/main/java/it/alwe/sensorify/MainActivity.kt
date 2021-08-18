@@ -74,8 +74,18 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
 
         setContentView(R.layout.activity_main)
 
+        MobileAds.initialize(this) {}
+
+        val requestConfigurationBuilder = RequestConfiguration.Builder()
+            .setTestDeviceIds(arrayListOf(
+                AdRequest.DEVICE_ID_EMULATOR,
+                "D88841A06FB3B7B7314D4A021C890B99"))
+            .build()
+
+        MobileAds.setRequestConfiguration(requestConfigurationBuilder)
+
         val adRequest = AdRequest.Builder().build()
-        val intAdString = if (adRequest.isTestDevice(baseContext)) getString(R.string.testInterstitialID) else getString(R.string.mainInterstitialID)
+        val intAdString = if (adRequest.isTestDevice(this)) getString(R.string.testInterstitialID) else getString(R.string.mainInterstitialID)
 
         InterstitialAd.load(this, intAdString, adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -94,9 +104,12 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {}
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                        Log.w("AdView", "onAdFailedToShowFullScreenContent")
+                    }
 
                     override fun onAdShowedFullScreenContent() {
+                        Log.w("AdView", "onAdShowedFullScreenContent")
                         intAd = null
                     }
                 }
@@ -252,7 +265,7 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) &&
             packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             activities += HeartbeatActivity::class.java
-            icons += R.drawable.ic_heart_pulse
+            icons += R.drawable.ic_heart
             entries += R.string.heartbeat_block
         }
 

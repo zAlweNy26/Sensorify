@@ -178,10 +178,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/pulseLayout"
                 android:layout_width="200dp"
-                android:layout_height="75dp"
+                android:layout_height="74dp"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/ic_heartbeat">
+                android:background="@drawable/heartbeat_pulse">
 
                 <TextView
                     android:id="@+id/heartbeatValue"

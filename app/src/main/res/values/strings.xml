@@ -269,7 +269,6 @@
     <string name="azimuth" translatable="false">Azimuth = %1$s</string>
     <!-- Heartbeat Activity -->
     <string name="stopMeasuring">It looks like you took your finger off the camera. Place your finger correctly and try again.</string>
-    <string name="insufficientData">Insufficient data !</string>
 
     <string name="heartbeatInfo"><font size="22"><b>What is it ?</b></font>\n\n
         A photoplethysmogram (PPG) is an optically obtained plethysmogram that can be used to detect blood volume changes in the microvascular bed of tissue.
@@ -449,5 +448,4 @@
         <item>°</item>
         <item>rad</item>
     </array>
-    <string name="isMeasuring">Measuring…</string>
 </resources>

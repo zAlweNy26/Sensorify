@@ -69,8 +69,8 @@ dependencies {
     implementation("androidx.camera:camera-view:1.0.0-alpha27")
     implementation("androidx.camera:camera-extensions:1.0.0-alpha27")
     // Firebase libraries
-    implementation 'com.google.firebase:firebase-analytics:19.0.0'
-    implementation 'com.google.firebase:firebase-ads:20.2.0'
+    //implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    //implementation 'com.google.firebase:firebase-ads:20.2.0'
     // GitHub libraries
     implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
     implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
@@ -82,11 +82,14 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation "androidx.browser:browser:1.3.0"
+    implementation "androidx.vectordrawable:vectordrawable-seekable:1.0.0-alpha02"
     // Google libraries
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.google.android.play:core:1.10.0'
+    implementation 'com.google.android.gms:play-services-ads:20.2.0'
     // JetBrains libraries
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     // Test libraries
     testImplementation 'junit:junit:4.13.2'
     // Android test libraries

@@ -307,8 +307,6 @@
     <string name="simBlocked">Bloccato</string>
     <string name="simReady">Pronta</string>
     <string name="simUnknown">Sconosciuta</string>
-    <string name="isMeasuring">Misurando…</string>
-    <string name="insufficientData">Dati non sufficienti !</string>
     <string name="settings_precision">Precisione</string>
     <string name="settings_precision_dialog_title">Scegli un valore :</string>
     <string name="stopMeasuring">Sembra che tu abbia tolto il dito dalla fotocamera. Posiziona correttamente il dito e riprova.</string>
