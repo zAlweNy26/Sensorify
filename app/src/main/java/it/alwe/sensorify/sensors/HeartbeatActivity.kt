@@ -314,6 +314,7 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
                 pulseLayout.background = heartbeatPulseCompat
                 heartbeatPulseCompat?.start()
             }
+            // https://stackoverflow.com/questions/4371105/how-can-i-change-the-duration-for-an-android-animationdrawable-animation-on-the
             // duration = (1000L * 60L) / beatsAvg
             //val firstSlideLeft: Animation = AnimationUtils.loadAnimation(baseContext, R.anim.from_left)
             //firstSlideLeft.duration = (1000L * 60L) / beatsAvg
