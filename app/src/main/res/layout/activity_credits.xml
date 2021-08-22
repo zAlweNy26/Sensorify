@@ -156,7 +156,7 @@
                     android:layout_marginBottom="15dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/ic_sensorify" />
+                    app:srcCompat="@drawable/app_logo" />
 
                 <TextView
                     android:layout_width="wrap_content"

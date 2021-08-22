@@ -6,6 +6,7 @@
         <entry key="..\:/Users/danyn/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/heartbeat_bar.xml" value="0.246875" />
         <entry key="..\:/Users/danyn/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/heartbeat_pulse.xml" value="0.246875" />
         <entry key="..\:/Users/danyn/AndroidStudioProjects/Sensorify/app/src/main/res/layout/activity_heartbeat.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/app_logo.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/button_style.xml" value="0.31155555555555553" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/collapse_to_expand.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/container_bg.xml" value="0.31576576576576576" />
@@ -24,12 +25,15 @@
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_heart.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_heart_pulse.xml" value="0.31155555555555553" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_heartbeat.xml" value="0.31155555555555553" />
+        <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_menu_arrow.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_refresh.xml" value="0.31155555555555553" />
+        <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_sensorify.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/ic_thermometer.xml" value="0.31576576576576576" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/play_to_pause.xml" value="0.31155555555555553" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/seekbar_style.xml" value="0.31155555555555553" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/drawable/three_quarters_circular.xml" value="0.31576576576576576" />
+        <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/font/montserrat.xml" value="0.3279279279279279" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/layout/activity_accelerometer.xml" value="0.11711711711711711" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/layout/activity_connection.xml" value="0.2921195652173913" />
         <entry key="..\:/Users/danyn/Documents/AndroidStudioProjects/Sensorify/app/src/main/res/layout/activity_credits.xml" value="0.29030797101449274" />
