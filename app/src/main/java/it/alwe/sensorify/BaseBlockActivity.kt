@@ -42,7 +42,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import net.cachapa.expandablelayout.ExpandableLayout
 import java.io.IOException
-import java.text.DecimalFormat
 import kotlin.math.abs
 
 abstract class BaseBlockActivity : CommonActivity() {
@@ -79,6 +78,7 @@ abstract class BaseBlockActivity : CommonActivity() {
 
                     val rootView = window.decorView.findViewById<View>(R.id.blockScrollView)
                     val screenView: View = rootView.rootView
+                    @Suppress("DEPRECATION")
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) screenView.isDrawingCacheEnabled = true
                     val bitmap = Bitmap.createBitmap(findViewById<ScrollView>(R.id.blockScrollView).getChildAt(0).width,
                         findViewById<ScrollView>(R.id.blockScrollView).getChildAt(0).height, Bitmap.Config.ARGB_8888)
@@ -86,6 +86,7 @@ abstract class BaseBlockActivity : CommonActivity() {
                     val bitmapCanvas = Canvas(bitmap)
                     bitmapCanvas.drawColor(Color.parseColor("#" + Integer.toHexString(colorId)))
                     findViewById<ScrollView>(R.id.blockScrollView).draw(bitmapCanvas)
+                    @Suppress("DEPRECATION")
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) screenView.isDrawingCacheEnabled = false
 
                     val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)

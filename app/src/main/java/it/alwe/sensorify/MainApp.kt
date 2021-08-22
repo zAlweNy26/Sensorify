@@ -5,7 +5,7 @@ import com.yariksoffice.lingver.Lingver
 import com.yariksoffice.lingver.store.PreferenceLocaleStore
 import java.util.*
 
-// RIGHE DI CODICE : 3339
+// RIGHE DI CODICE : 3645
 
 data class MissingSensor(var title: String, var description: String, var icon: Int){
     var isExpanded = false
