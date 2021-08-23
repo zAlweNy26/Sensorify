@@ -104,10 +104,10 @@ class SystemActivity : BaseBlockActivity() {
             "${getFromBytes((internalStatFs.availableBlocksLong * internalStatFs.blockSizeLong) + 
                     (internalStatFs.blockCountLong * internalStatFs.blockSizeLong))}"*/
 
-        /*ramArc.progress = ((((memoryInfo.totalMem / 1048576.0) - (memoryInfo.availMem / 1048576.0)) / (memoryInfo.totalMem / 1048576.0)) * 100.0).toFloat()
+        ramArc.progress = ((((memoryInfo.totalMem / 1048576.0) - (memoryInfo.availMem / 1048576.0)) / (memoryInfo.totalMem / 1048576.0)) * 100.0).toFloat()
         storageArc.progress = ((((internalStatFs.blockCountLong * internalStatFs.blockSizeLong) / 1048576.0)
             / (((internalStatFs.availableBlocksLong * internalStatFs.blockSizeLong) +
-            (internalStatFs.blockCountLong * internalStatFs.blockSizeLong)) / 1048576.0)) * 100.0).toFloat()*/
+            (internalStatFs.blockCountLong * internalStatFs.blockSizeLong)) / 1048576.0)) * 100.0).toFloat()
 
         ramArc.belowText = getString(R.string.of, getFromBytes(memoryInfo.totalMem))
         storageArc.belowText = getString(R.string.of, getFromBytes((internalStatFs.availableBlocksLong * internalStatFs.blockSizeLong) +
@@ -212,7 +212,7 @@ class SystemActivity : BaseBlockActivity() {
         return sb.toString()
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         val internalStatFs = StatFs(Environment.getDataDirectory().absolutePath)
         val activityManager = applicationContext.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val memoryInfo = ActivityManager.MemoryInfo()
@@ -236,7 +236,7 @@ class SystemActivity : BaseBlockActivity() {
     override fun onPause() {
         try { timer?.cancel() } catch (e: IllegalStateException) { e.printStackTrace() }
         super.onPause()
-    }
+    }*/
 
     override fun onShareButtonClick() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
@@ -248,6 +248,7 @@ class SystemActivity : BaseBlockActivity() {
             "${getString(R.string.interfaceVersion)} ${interfaceVersion.text}\n" +
             "${getString(R.string.androidID)} ${androidID.text}\n" +
             "${getString(R.string.brand)} ${brand.text}\n" +
+            "${getString(R.string.suppABIs)} ${suppABIs.text}\n" +
             "\n${getString(R.string.hardwareInfo)} :\n" +
             "${getString(R.string.manufacturer)} ${manufacturer.text}\n" +
             "${getString(R.string.model)} ${model.text}\n" +
@@ -255,6 +256,7 @@ class SystemActivity : BaseBlockActivity() {
             "${getString(R.string.cpuFreq)} ${cpuFreq.text}\n" +
             "${getString(R.string.ram)} ${totRAM}\n" +
             "${getString(R.string.storage)} ${totStorage}\n" +
+            "${getString(R.string.hasBluetooth)} ${bluetooth.text}\n" +
             "${getString(R.string.hasNFC)} ${nfc.text}\n" +
             "${getString(R.string.hasBiometric)} ${biometric.text}\n" +
             "${getString(R.string.screenSize)} ${screenSize.text}\n" +
