@@ -36,7 +36,7 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
     private var blockIntent: Intent? = null
     private var intAd: InterstitialAd? = null
     private var adTimes: Int = 2
-    private lateinit var myApp: MainApp
+    //private lateinit var myApp: MainApp
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var installStateUpdatedListener: InstallStateUpdatedListener
 
@@ -116,7 +116,7 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
             }
         })
 
-        myApp = application as MainApp
+        //myApp = application as MainApp
 
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
