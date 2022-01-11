@@ -14,20 +14,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.InstallState
-import com.google.android.play.core.install.InstallStateUpdatedListener
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
-import com.google.android.play.core.install.model.UpdateAvailability
 import it.alwe.sensorify.sensors.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,9 +31,6 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
     private var blockIntent: Intent? = null
     private var intAd: InterstitialAd? = null
     private var adTimes: Int = 2
-    //private lateinit var myApp: MainApp
-    private lateinit var appUpdateManager: AppUpdateManager
-    private lateinit var installStateUpdatedListener: InstallStateUpdatedListener
 
     private var activities = arrayOf(
         SystemActivity::class.java,
@@ -53,70 +45,36 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
         R.drawable.ic_wifi,
         R.drawable.ic_gps,
         R.drawable.ic_battery_60,
-        R.drawable.ic_sound_meter)
+        R.drawable.ic_sound_meter
+    )
 
     private var entries = arrayOf(
         R.string.system_block,
         R.string.connection_block,
         R.string.gps_block,
         R.string.battery_block,
-        R.string.sound_meter_block)
+        R.string.sound_meter_block
+    )
 
     // TODO : https://stackoverflow.com/questions/43407960/center-align-items-in-gridview
-    // TODO : https://firebase.google.com/docs/remote-config/get-started?platform=android
 
     override fun onCreate(savedInstanceState: Bundle?) {
         checkForSensors()
-
+        MobileAds.initialize(this) {}
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
-
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this) {}
-
-        val requestConfigurationBuilder = RequestConfiguration.Builder()
+        MobileAds.setRequestConfiguration(RequestConfiguration.Builder()
             .setTestDeviceIds(arrayListOf(
                 AdRequest.DEVICE_ID_EMULATOR,
                 "D88841A06FB3B7B7314D4A021C890B99"))
             .build()
+        )
 
-        MobileAds.setRequestConfiguration(requestConfigurationBuilder)
-
-        val adRequest = AdRequest.Builder().build()
-        val intAdString = if (adRequest.isTestDevice(this)) getString(R.string.testInterstitialID) else getString(R.string.mainInterstitialID)
-
-        InterstitialAd.load(this, intAdString, adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.w("AdView", "onAdFailedToLoad : $adError")
-                intAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.w("AdView", "onAdLoaded")
-                intAd = interstitialAd
-                intAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        Log.w("AdView", "onAdDismissedFullScreenContent")
-                        finish()
-                        startActivity(blockIntent)
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    }
-
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                        Log.w("AdView", "onAdFailedToShowFullScreenContent")
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        Log.w("AdView", "onAdShowedFullScreenContent")
-                        intAd = null
-                    }
-                }
-            }
-        })
-
-        //myApp = application as MainApp
+        loadAd()
 
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -131,84 +89,54 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
             val selectedItem = parent.getItemAtPosition(position).toString()
             blockIntent = Intent(applicationContext, activities[selectedItem.toInt()])
             gridBlocks.onSaveInstanceState()
-            if (intAd != null && adTimes == 0) intAd?.show(this)
-            else {
+            Log.w("AdView", "adTimes : $adTimes")
+            if (intAd != null && adTimes % 5 == 0) {
+                intAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        Log.w("AdView", "onAdDismissedFullScreenContent")
+                        loadAd()
+                        finish()
+                        startActivity(blockIntent)
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                        Log.w("AdView", "onAdFailedToShowFullScreenContent : $adError")
+                        intAd = null
+                    }
+
+                    override fun onAdShowedFullScreenContent() {
+                        Log.w("AdView", "onAdShowedFullScreenContent")
+                        intAd = null
+                    }
+                }
+                intAd?.show(this)
+            } else {
                 Log.w("AdView", "Not loaded !")
+                finish()
                 startActivity(blockIntent)
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                finish()
             }
             adTimes += 1
-            if (adTimes > 4) adTimes = 0
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            neededPermissionRequest.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+    }
 
-        appUpdateManager = AppUpdateManagerFactory.create(this)
-
-        installStateUpdatedListener = object : InstallStateUpdatedListener {
-            override fun onStateUpdate(state: InstallState) {
-                when (state.installStatus()) {
-                    InstallStatus.DOWNLOADED -> popupSnackbarForCompleteUpdate()
-                    InstallStatus.INSTALLED -> appUpdateManager.unregisterListener(this)
-                    InstallStatus.FAILED, InstallStatus.CANCELED, InstallStatus.UNKNOWN -> popupSnackbarForRetryUpdate()
-                }
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        val intAdString = if (adRequest.isTestDevice(this)) getString(R.string.testInterstitialID) else getString(R.string.mainInterstitialID)
+        InterstitialAd.load(this, intAdString, adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.w("AdView", "onAdFailedToLoad : $adError")
+                intAd = null
             }
-        }
-        checkInAppUpdate()
-    }
-
-    private fun checkInAppUpdate() {
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                //&& (appUpdateInfo.clientVersionStalenessDays() ?: -1) >= 3
-                //&& appUpdateInfo.updatePriority() >= 4
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                appUpdateManager.registerListener(installStateUpdatedListener)
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE, this, 26)
-            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED)
-                popupSnackbarForCompleteUpdate()
-        }
-    }
-
-    private fun popupSnackbarForCompleteUpdate() {
-        Snackbar.make(
-            findViewById(R.id.mainLayout), getString(R.string.downloadFinished),
-            Snackbar.LENGTH_INDEFINITE
-        ).apply {
-            setAction(getString(R.string.restart)) { appUpdateManager.completeUpdate() }
-            setActionTextColor(ContextCompat.getColor(context, R.color.monoAxisColor))
-            show()
-        }
-    }
-
-    private fun popupSnackbarForRetryUpdate() {
-        Snackbar.make(
-            findViewById(R.id.mainLayout), getString(R.string.downloadError),
-            Snackbar.LENGTH_INDEFINITE
-        ).apply {
-            setAction(getString(R.string.retry)) { checkInAppUpdate() }
-            setActionTextColor(ContextCompat.getColor(context, R.color.yAxisColor))
-            show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 26 && resultCode != RESULT_OK) popupSnackbarForRetryUpdate()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) popupSnackbarForCompleteUpdate()
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        appUpdateManager.unregisterListener(installStateUpdatedListener)
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.w("AdView", "onAdLoaded")
+                intAd = interstitialAd
+            }
+        })
     }
 
     override fun onStop() {
@@ -221,11 +149,21 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
     }
 
     @SuppressLint("MissingPermission")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults.isNotEmpty())
-            if (grantResults[0] == 0)
+    private val neededPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        when {
+            permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: false -> {
                 recreate()
+            } else -> {
+                Snackbar.make(
+                    findViewById(R.id.mainLayout), getString(R.string.permissionsLack),
+                    Snackbar.LENGTH_LONG
+                ).apply {
+                    setAction(getString(android.R.string.ok)) { }
+                    setActionTextColor(ContextCompat.getColor(context, R.color.monoAxisColor))
+                    show()
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -133,7 +133,7 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
                         connectionStatus = getString(R.string.wifi_state_value_on)
                         cSSID = if (wifiInfo.ssid.replace("\"", "") == "<unknown ssid>") getString(R.string.unavailableValue) else wifiInfo.ssid.replace("\"", "")
                         cBSSID = wifiInfo?.bssid.toString()
-                        cMAC = wifiInfo?.macAddress.toString()
+                        cMAC = getString(R.string.unavailableValue)
                         @Suppress("DEPRECATION")
                         cIP = Formatter.formatIpAddress(wifiInfo.ipAddress)
                         cRSSI = "${wifiInfo?.rssi} dBm"

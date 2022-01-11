@@ -55,6 +55,8 @@
         android:name="android.hardware.sensor.step_detector"
         android:required="false" />
 
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
     <application
         android:name=".MainApp"
         android:allowBackup="true"
@@ -65,7 +67,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/LightTheme"
+        android:theme="@style/Theme.App.Starting"
         android:usesCleartextTraffic="true">
 
         <meta-data
@@ -83,18 +85,14 @@
         </provider>
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".MainActivity"
             android:screenOrientation="locked"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="locked" />
         <activity
             android:name=".sensors.HumidityActivity"
             android:parentActivityName=".MainActivity"

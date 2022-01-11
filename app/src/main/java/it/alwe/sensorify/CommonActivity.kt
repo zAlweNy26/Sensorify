@@ -11,9 +11,7 @@ import androidx.preference.PreferenceManager
 import java.util.*
 
 abstract class CommonActivity : AppCompatActivity() {
-
     private var sharedPrefs: SharedPreferences? = null
-    //private var language: String? = null
     private var themeValue: Int? = null
     private var batteryValue: Boolean? = false
     private var timeValue: Boolean? = false

@@ -12,6 +12,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import com.devs.vectorchildfinder.VectorChildFinder
 import com.devs.vectorchildfinder.VectorDrawableCompat
@@ -25,6 +26,16 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
     override val contentView: Int
         get() = R.layout.activity_gps
 
+    @SuppressLint("MissingPermission")
+    private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        when {
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false && permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                recreate()
+                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
+            } else -> onBackPressed()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -36,27 +47,18 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
             colorIconGPS(Color.RED)
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-            && locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10f, locationListener)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        else locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
     }
 
     override fun onPause() {
         super.onPause()
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-            && !locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            locationManager?.removeUpdates(locationListener)
-    }
-
-    @SuppressLint("MissingPermission")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults.isNotEmpty()) {
-            if (grantResults[0] == 0) {
-                recreate()
-                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
-            }
-        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        else locationManager?.removeUpdates(locationListener)
     }
 
     private val locationListener: LocationListener = object : LocationListener {
@@ -75,14 +77,8 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
     }
 
     private fun colorIconGPS(color: Int) {
-        if (color == Color.GREEN) blockMainInfoText.text = getString(
-            R.string.state_text, getString(
-                R.string.gps_enabled
-            ))
-        else if (color == Color.RED) blockMainInfoText.text = getString(
-            R.string.state_text, getString(
-                R.string.gps_disabled
-            ))
+        if (color == Color.GREEN) blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_enabled))
+        else if (color == Color.RED) blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_disabled))
         val vector = VectorChildFinder(this, R.drawable.ic_gps, gpsIcon)
         val path1: VectorDrawableCompat.VFullPath = vector.findPathByName("gpsCircle")
         path1.fillColor = color
@@ -109,8 +105,9 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
             startActivity(gpsIntent)
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         else locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
     }
 
