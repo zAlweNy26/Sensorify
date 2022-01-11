@@ -12,6 +12,7 @@
     <string name="playPauseDesc">Play / Pause</string>
     <string name="expandCollapseDesc">Expand / Collapse</string>
     <string name="downloadFinished">The update has just been downloaded !</string>
+    <string name="permissionsLack">Some functionalities may not work due to lack of permissions !</string>
     <string name="downloadError">Unable to download the update !</string>
     <string name="restart">INSTALL</string>
     <string name="retry">RETRY</string>

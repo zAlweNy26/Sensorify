@@ -5,9 +5,6 @@
    - Vedere se si può calcolare velocità basandosi sul Pedometro
    - Non far ricominciare da capo l'arcprogress quando il valore cambia
    - Vedere perchè Fonometro e Battito cardiaco non fanno premere tasti se non concedo i loro permessi
-   - Finire traduzioni
-   - Fare la descrizione sulla pagina del play store (dalla play console) del Battito cardiaco
-   - Aggiornare screenshot nella scheda del Play Store
    
 ## Other
 
