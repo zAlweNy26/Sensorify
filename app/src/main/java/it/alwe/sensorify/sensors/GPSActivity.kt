@@ -12,10 +12,13 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.devs.vectorchildfinder.VectorChildFinder
 import com.devs.vectorchildfinder.VectorDrawableCompat
+import com.google.android.material.snackbar.Snackbar
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
 import kotlinx.android.synthetic.main.activity_gps.*
@@ -29,10 +32,21 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
     @SuppressLint("MissingPermission")
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
         when {
-            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false && permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true && permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true -> {
                 recreate()
                 locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
-            } else -> onBackPressed()
+            } else -> {
+                Snackbar.make(
+                    findViewById(R.id.mainLayout), getString(R.string.permissionsLack),
+                    Snackbar.LENGTH_LONG
+                ).apply {
+                    view.findViewById<TextView>(R.id.snackbar_text).maxLines = 3
+                    setAction(getString(android.R.string.ok)) { }
+                    setActionTextColor(ContextCompat.getColor(context, R.color.monoAxisColor))
+                    show()
+                }
+                onBackPressed()
+            }
         }
     }
 

@@ -10,10 +10,12 @@ import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -120,7 +122,8 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
             adTimes += 1
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+            && Build.VERSION.SDK_INT <= 29)
             neededPermissionRequest.launch(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
     }
 
@@ -150,14 +153,16 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
 
     @SuppressLint("MissingPermission")
     private val neededPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        Log.w("NeededPerms", permissions.toString())
         when {
-            permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: false -> {
+            permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true -> {
                 recreate()
             } else -> {
                 Snackbar.make(
                     findViewById(R.id.mainLayout), getString(R.string.permissionsLack),
                     Snackbar.LENGTH_LONG
                 ).apply {
+                    view.findViewById<TextView>(R.id.snackbar_text).maxLines = 3
                     setAction(getString(android.R.string.ok)) { }
                     setActionTextColor(ContextCompat.getColor(context, R.color.monoAxisColor))
                     show()
