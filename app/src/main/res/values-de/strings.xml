@@ -319,4 +319,5 @@
          Ein PPG wird oft unter Verwendung eines Pulsoximeters erhalten, das die Haut beleuchtet und Veränderungen der Lichtabsorption misst.
          Um die Herzfrequenz zu messen, simulieren wir daher ein PPG mit der Kamera und dem Blitz.\n\n
          Erklärung der bekanntesten Online-Enzyklopädie, <b>Wikipedia.org</b></string>
+    <string name="permissionsLack">Einige Funktionen können aufgrund fehlender Berechtigungen nicht funktionieren !</string>
 </resources>

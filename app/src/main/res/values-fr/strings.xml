@@ -321,4 +321,5 @@
          Un PPG est souvent obtenu en utilisant un oxymètre de pouls qui illumine la peau et mesure les changements d\'absorption de la lumière.
          Pour mesurer la fréquence cardiaque, nous allons donc simuler un PPG à l\'aide de l\'appareil photo et du flash.\n\n
          Explication offerte par la plus célèbre encyclopédie en ligne, <b>Wikipedia.org</b></string>
+    <string name="permissionsLack">Certaines fonctionnalités peuvent ne pas fonctionner par manque de permissions !</string>
 </resources>

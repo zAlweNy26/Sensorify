@@ -41,6 +41,7 @@ class SettingsActivity : CommonActivity() {
         val cls = Class.forName("it.alwe.sensorify.$activity")
         startActivity(Intent(this, cls))
         overridePendingTransition(R.anim.from_left, R.anim.to_right)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

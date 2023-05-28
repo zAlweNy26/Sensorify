@@ -52,7 +52,7 @@ public class ArcProgress extends View {
     private final float defaultBottomTextSize;
     private final int defaultMax = 100;
     private final float defaultAngle = 360 * 0.75f;
-    private float defaultTextSize;
+    private final float defaultTextSize;
     private final int defaultMinSize;
 
     private static final String INSTANCE_STATE = "savedInstance";

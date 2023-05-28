@@ -166,6 +166,7 @@ abstract class BaseBlockActivity : CommonActivity() {
         mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(mainIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -266,11 +267,9 @@ abstract class BaseBlockActivity : CommonActivity() {
 
         val dm = DisplayMetrics()
 
+        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) this.display?.getRealMetrics(dm)
-        else {
-            @Suppress("DEPRECATION")
-            this.windowManager.defaultDisplay.getMetrics(dm)
-        }
+        else this.windowManager.defaultDisplay.getMetrics(dm)
 
         val liveChartMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
 

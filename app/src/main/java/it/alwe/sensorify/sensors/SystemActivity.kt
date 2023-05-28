@@ -28,7 +28,7 @@ import kotlin.math.sqrt
 class SystemActivity : BaseBlockActivity() {
     private var totRAM: String? = null
     private var totStorage: String? = null
-    private var timer: Timer? = null
+    //private var timer: Timer? = null
 
     override val contentView: Int
         get() = R.layout.activity_system
@@ -45,6 +45,7 @@ class SystemActivity : BaseBlockActivity() {
             Build.VERSION_CODES.P -> "Pie"
             Build.VERSION_CODES.Q -> "Q"
             Build.VERSION_CODES.R -> "R"
+            Build.VERSION_CODES.S -> "S"
             else -> getString(R.string.unavailableValue)
         }
 
@@ -75,21 +76,25 @@ class SystemActivity : BaseBlockActivity() {
         val displayMetrics = DisplayMetrics()
         val realSize = Point()
 
+        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val display = this.display
             display?.getRealMetrics(displayMetrics)
+            display?.getRealSize(realSize)
             Display::class.java.getMethod("getRealSize", Point::class.java).invoke(display, realSize)
         } else {
-            @Suppress("DEPRECATION")
-            val display = this.windowManager.defaultDisplay
-            @Suppress("DEPRECATION")
-            display.getMetrics(displayMetrics)
+            val display = windowManager.defaultDisplay
+            display.getRealMetrics(displayMetrics)
+            display.getRealSize(realSize)
             Display::class.java.getMethod("getRealSize", Point::class.java).invoke(display, realSize)
         }
 
         val dpiX = (realSize.x / displayMetrics.xdpi).pow(2)
         val dpiY = (realSize.y / displayMetrics.ydpi).pow(2)
         val screenInches = "%.2f".format(sqrt(dpiX + dpiY))
+
+        screenSize.text = "$screenInches in"
+        screenDensity.text = "${displayMetrics.densityDpi} dpi"
+        screenResolution.text = "(${displayMetrics.widthPixels} x ${displayMetrics.heightPixels}) px"
 
         manufacturer.text = Build.MANUFACTURER.replaceFirstChar { it.uppercase() }
         model.text = "${Build.MODEL.replaceFirstChar { it.uppercase() }} (${Build.DEVICE})"
@@ -135,10 +140,6 @@ class SystemActivity : BaseBlockActivity() {
 
         val frontVideo = CamcorderProfile.get(1, CamcorderProfile.QUALITY_HIGH)
         fvRes.text = "${(frontVideo.videoFrameWidth * frontVideo.videoFrameHeight) / 1000000} Mp\n(${frontVideo.videoFrameWidth} x ${frontVideo.videoFrameHeight}) px"
-
-        screenSize.text = "$screenInches in"
-        screenDensity.text = "${displayMetrics.densityDpi} dpi"
-        screenResolution.text = "(${displayMetrics.widthPixels} x ${displayMetrics.heightPixels}) px"
     }
 
     private fun getFromBytes(bytes: Long): String {

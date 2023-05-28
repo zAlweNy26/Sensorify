@@ -316,4 +316,5 @@
          Un PPG viene spesso ottenuto utilizzando un pulsossimetro che illumina la pelle e misura i cambiamenti nell\'assorbimento della luce.
          Per misurare la frequenza cardiaca, quindi, simuleremo un PPG utilizzando la fotocamera e il flash.\n\n
          Spiegazione offerta dalla più famosa enciclopedia online, <b>Wikipedia.org</b></string>
+    <string name="permissionsLack">Alcune funzionalità potrebbero non funzionare a causa della mancanza di autorizzazioni !</string>
 </resources>

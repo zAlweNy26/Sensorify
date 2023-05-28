@@ -40,7 +40,7 @@ class MissingSensorsActivity : CommonActivity() {
             Sensor.TYPE_GRAVITY to MissingSensor(getString(R.string.gravity_page), getString(R.string.gravityInfo), R.drawable.ic_globe),
         )
 
-        (sensorsMap.keys - supportedSensorsList).forEach {
+        (sensorsMap.keys - supportedSensorsList.toSet()).forEach {
             sensorsMap[it]?.let { it1 -> missingSensors.add(it1) }
         }
 
