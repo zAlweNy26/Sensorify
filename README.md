@@ -1,17 +1,16 @@
-# Sensorify
-### To do list :
-   - Usare la Google Fit API per il Pedometro (prendere passi fatti fino ad adesso)
-   - Permettere la cancellazione degli screenshot fatti
-   - Vedere se si può calcolare velocità basandosi sul Pedometro
-   - Non far ricominciare da capo l'arcprogress quando il valore cambia
-   - Vedere perchè Fonometro e Battito cardiaco non fanno premere tasti se non concedo i loro permessi
-   
-## Other
+# sensorify
 
-- If you find bugs, **report them** to _me_ and I will try to solve them !
-- I **accept any kind of suggestions** to _improve_ my projects !
-- If you want and you can help me, or you just want to talk with me, **contact me** ! 
+A new Flutter project.
 
-## Contacts 
-- Discord : **_Alwe#4796_**
-- Developer email : alwe.dev@gmail.com
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
