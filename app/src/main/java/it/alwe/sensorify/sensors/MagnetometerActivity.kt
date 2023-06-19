@@ -5,37 +5,39 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_magnetometer.*
+import it.alwe.sensorify.databinding.ActivityMagnetometerBinding
 
-class MagnetometerActivity : BaseBlockActivity() {
+class MagnetometerActivity : BaseBlockActivity<ActivityMagnetometerBinding>() {
     private var magnetometerManager: SensorManager? = null
     private var magnetometer: Sensor? = null
 
-    override val contentView: Int
-        get() = R.layout.activity_magnetometer
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityMagnetometerBinding {
+        return ActivityMagnetometerBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
         setListenerRegistered(true, magnetometerManager!!, magnetometerListener, magnetometer!!)
-        toggleThread(true)
+        //toggleThread(true)
     }
 
     override fun onPause() {
         super.onPause()
         setListenerRegistered(false, magnetometerManager!!, magnetometerListener, magnetometer!!)
-        toggleThread(false)
+        //toggleThread(false)
     }
 
     private val magnetometerListener: SensorEventListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
 
         override fun onSensorChanged(event: SensorEvent) {
-            xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(event.values[0])} μT")
-            yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(event.values[1])} μT")
-            zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(event.values[2])} μT")
+            content.xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(event.values[0])} μT")
+            content.yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(event.values[1])} μT")
+            content.zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(event.values[2])} μT")
 
             addEntry(1, 3, event.values, arrayOf("X", "Y", "Z"), arrayOf(
                     "#" + Integer.toHexString(ContextCompat.getColor(applicationContext, R.color.xAxisColor)),
@@ -47,19 +49,19 @@ class MagnetometerActivity : BaseBlockActivity() {
     }
 
     override fun addCode() {
-        xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
-        yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
-        zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
+        content.xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
+        content.yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
+        content.zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
 
         magnetometerManager = getSystemService(SENSOR_SERVICE) as SensorManager
         magnetometer = magnetometerManager?.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        sensorName.text = magnetometer?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = magnetometer?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = magnetometer?.version.toString()
-        sensorPowerUsage.text = "${magnetometer?.power.toString()} mA"
-        sensorResolution.text = "${convertSuperScript(magnetometer?.resolution.toString())} μT"
-        sensorRange.text = "${convertSuperScript(magnetometer?.maximumRange.toString())} μT"
+        content.sensorName.text = magnetometer?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = magnetometer?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = magnetometer?.version.toString()
+        content.sensorPowerUsage.text = "${magnetometer?.power.toString()} mA"
+        content.sensorResolution.text = "${convertSuperScript(magnetometer?.resolution.toString())} μT"
+        content.sensorRange.text = "${convertSuperScript(magnetometer?.maximumRange.toString())} μT"
 
         createChart(10f, 3f, 0, legend = true, negative = true)
         startLiveChart()
@@ -69,15 +71,15 @@ class MagnetometerActivity : BaseBlockActivity() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.magnetometer_page)} :\n" +
-            "${xValue.text}\n" +
-            "${yValue.text}\n" +
-            "${zValue.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}"
+            "${content.xValue.text}\n" +
+            "${content.yValue.text}\n" +
+            "${content.zValue.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.magnetometer_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

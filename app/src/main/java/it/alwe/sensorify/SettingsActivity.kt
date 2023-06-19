@@ -7,18 +7,21 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_settings.*
+import it.alwe.sensorify.databinding.ActivitySettingsBinding
 
 class SettingsActivity : CommonActivity() {
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolBar)
+        setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow)
@@ -27,21 +30,22 @@ class SettingsActivity : CommonActivity() {
             if (savedInstanceState != null) return
             supportFragmentManager.beginTransaction().replace(R.id.settings_fragment, SettingsFragment()).commit()
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                var activity = intent.getStringExtra("previousActivity")!!
+                if (activity != "MainActivity") activity = "sensors.$activity"
+                val cls = Class.forName("it.alwe.sensorify.$activity")
+                startActivity(Intent(applicationContext, cls))
+                overridePendingTransition(R.anim.from_left, R.anim.to_right)
+                finish()
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        var activity = intent.getStringExtra("previousActivity")!!
-        if (activity != "MainActivity") activity = "sensors.$activity"
-        val cls = Class.forName("it.alwe.sensorify.$activity")
-        startActivity(Intent(this, cls))
-        overridePendingTransition(R.anim.from_left, R.anim.to_right)
-        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -31,7 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 import it.alwe.sensorify.AvgRedAnalyzer
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_heartbeat.*
+import it.alwe.sensorify.databinding.ActivityHeartbeatBinding
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -40,7 +41,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 // TODO : https://stackoverflow.com/questions/28115049/android-heart-rate-monitor-code-explanation
 // TODO : https://github.com/YahyaOdeh/HealthWatcher
 
-class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class HeartbeatActivity : BaseBlockActivity<ActivityHeartbeatBinding>(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
     private var heartbeatBar: SeekableAnimatedVectorDrawable? = null
     private var heartbeatPulseCompat: AnimatedVectorDrawableCompat? = null
     private var heartbeatPulse: AnimatedVectorDrawable? = null
@@ -65,13 +67,14 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
     private var cameraTimer = Timer()
     private var textTimer = Timer()
 
-    override val contentView: Int
-        get() = R.layout.activity_heartbeat
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityHeartbeatBinding {
+        return ActivityHeartbeatBinding.inflate(inflater)
+    }
 
     override fun onShareButtonClick() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
-        val shareBody = "${getString(R.string.heartbeat_page)} : ${heartbeatValue.text.toString().replace("\n", "")}"
+        val shareBody = "${getString(R.string.heartbeat_page)} : ${content.heartbeatValue.text.toString().replace("\n", "")}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.heartbeat_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))
@@ -107,6 +110,13 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
             setActionTextColor(ContextCompat.getColor(context, R.color.yAxisColor))
         }
 
+        /*
+        * Use WindowManager.getCurrentWindowMetrics() to identify the current size of
+        * the activity window. UI-related work, such as choosing UI layouts,
+        * should rely upon WindowMetrics.getBounds(). Use Configuration.densityDpi
+        * to get the current density
+        * */
+
         val dm = DisplayMetrics()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) this.display?.getRealMetrics(dm)
         else {
@@ -115,29 +125,29 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
         }
 
         if (dm.widthPixels >= dm.heightPixels) { // landscape
-            cameraPreview.layoutParams.width = dm.heightPixels / 2
-            cameraPreview.layoutParams.height = dm.heightPixels / 2
-            pulseLayout.layoutParams.width = dm.heightPixels - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
-            pulseLayout.layoutParams.height = (pulseLayout.layoutParams.width * 75) / 200
+            content.cameraPreview.layoutParams.width = dm.heightPixels / 2
+            content.cameraPreview.layoutParams.height = dm.heightPixels / 2
+            content.pulseLayout.layoutParams.width = dm.heightPixels - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
+            content.pulseLayout.layoutParams.height = (content.pulseLayout.layoutParams.width * 75) / 200
         } else { // portrait
-            cameraPreview.layoutParams.width = dm.widthPixels / 2
-            cameraPreview.layoutParams.height = dm.widthPixels / 2
-            pulseLayout.layoutParams.width = dm.widthPixels - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
-            pulseLayout.layoutParams.height = (pulseLayout.layoutParams.width * 75) / 200
+            content.cameraPreview.layoutParams.width = dm.widthPixels / 2
+            content.cameraPreview.layoutParams.height = dm.widthPixels / 2
+            content.pulseLayout.layoutParams.width = dm.widthPixels - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
+            content.pulseLayout.layoutParams.height = (content.pulseLayout.layoutParams.width * 75) / 200
         }
 
-        containerView.radius = cameraPreview.layoutParams.width / 2f
+        content.containerView.radius = content.cameraPreview.layoutParams.width / 2f
 
-        val heartParams = heartbeatValue.layoutParams as ViewGroup.MarginLayoutParams
+        val heartParams = content.heartbeatValue.layoutParams as ViewGroup.MarginLayoutParams
         heartParams.bottomMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics).toInt()
-        heartbeatValue.layoutParams = heartParams
+        content.heartbeatValue.layoutParams = heartParams
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        startMeasuring.setOnClickListener {
+        content.startMeasuring.setOnClickListener {
             startUsingCamera()
             manageButton(STATE.GONE)
-            pulseLayout.visibility = View.VISIBLE
+            content.pulseLayout.visibility = View.VISIBLE
             errorSnackbar?.dismiss()
             manageBar(false)
         }
@@ -174,21 +184,21 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
     }
 
     private fun manageButton(state: STATE) {
-        val buttonParams = startMeasuring.layoutParams as ViewGroup.MarginLayoutParams
+        val buttonParams = content.startMeasuring.layoutParams as ViewGroup.MarginLayoutParams
         buttonParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, resources.displayMetrics).toInt()
         buttonParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, resources.displayMetrics).toInt()
-        startMeasuring.layoutParams = buttonParams
+        content.startMeasuring.layoutParams = buttonParams
         val btnDrawable = if (state == STATE.CHANGE) AppCompatResources.getDrawable(this, R.drawable.ic_refresh)
             else AppCompatResources.getDrawable(this, R.drawable.play_to_pause)
         btnDrawable!!.setTint(ContextCompat.getColor(this, if (state == STATE.DISABLE) R.color.colorPrimaryDark else R.color.colorPrimary))
-        startMeasuring.setImageDrawable(btnDrawable)
-        startMeasuring.visibility = if (state == STATE.GONE) View.GONE else View.VISIBLE
-        startMeasuring.isEnabled = state != STATE.DISABLE
-        startMeasuring.isClickable = state != STATE.DISABLE
+        content.startMeasuring.setImageDrawable(btnDrawable)
+        content.startMeasuring.visibility = if (state == STATE.GONE) View.GONE else View.VISIBLE
+        content.startMeasuring.isEnabled = state != STATE.DISABLE
+        content.startMeasuring.isClickable = state != STATE.DISABLE
     }
 
     private fun manageBar(stop: Boolean) {
-        pulseLayout.background = heartbeatBar
+        content.pulseLayout.background = heartbeatBar
         if (stop) {
             heartbeatBar?.pause()
             textTimer.cancel()
@@ -203,7 +213,7 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
                 override fun run() {
                     runOnUiThread {
                         if (i == 3) i = 0
-                        heartbeatValue.text = dotsText[i++]
+                        content.heartbeatValue.text = dotsText[i++]
                     }
                 }
             }, 0, 750)
@@ -231,7 +241,7 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
                 cameraProvider?.unbindAll()
                 manageButton(STATE.CHANGE)
                 manageBar(true)
-                heartbeatValue.text = "?"
+                content.heartbeatValue.text = "?"
                 isUsingCamera = false
             }
         }
@@ -242,7 +252,7 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
 
         cameraProviderFuture.addListener({
             cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build().also { it.setSurfaceProvider(cameraPreview.surfaceProvider) }
+            val preview = Preview.Builder().build().also { it.setSurfaceProvider(content.cameraPreview.surfaceProvider) }
             imageCapture = ImageCapture.Builder().build()
             val imageAnalyzer = ImageAnalysis.Builder().build().also {
                 it.setAnalyzer(cameraExecutor, AvgRedAnalyzer { avgRed ->
@@ -306,12 +316,12 @@ class HeartbeatActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
             val beatsAvg = beatsArrayAvg / beatsArrayCnt
 
             manageBar(true)
-            heartbeatValue.text = "$beatsAvg\nbpm"
+            content.heartbeatValue.text = "$beatsAvg\nbpm"
             if (Build.VERSION.SDK_INT >= 23) {
-                pulseLayout.background = heartbeatPulse
+                content.pulseLayout.background = heartbeatPulse
                 heartbeatPulse?.start()
             } else {
-                pulseLayout.background = heartbeatPulseCompat
+                content.pulseLayout.background = heartbeatPulseCompat
                 heartbeatPulseCompat?.start()
             }
             // https://stackoverflow.com/questions/4371105/how-can-i-change-the-duration-for-an-android-animationdrawable-animation-on-the

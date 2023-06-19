@@ -5,28 +5,30 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_gyroscope.*
+import it.alwe.sensorify.databinding.ActivityGyroscopeBinding
 
-class GyroscopeActivity : BaseBlockActivity() {
+class GyroscopeActivity : BaseBlockActivity<ActivityGyroscopeBinding>() {
     private var gyroscopeManager: SensorManager? = null
     private var gyroscope: Sensor? = null
 
-    override val contentView: Int
-        get() = R.layout.activity_gyroscope
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityGyroscopeBinding {
+        return ActivityGyroscopeBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
         setListenerRegistered(true, gyroscopeManager!!, gyroscopeListener, gyroscope!!)
-        toggleThread(true)
+        //toggleThread(true)
     }
 
     override fun onPause() {
         super.onPause()
         setListenerRegistered(false, gyroscopeManager!!, gyroscopeListener, gyroscope!!)
-        toggleThread(false)
+        //toggleThread(false)
     }
 
     private val gyroscopeListener: SensorEventListener = object : SensorEventListener {
@@ -34,9 +36,9 @@ class GyroscopeActivity : BaseBlockActivity() {
 
         override fun onSensorChanged(event: SensorEvent) {
 
-            xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(event.values[0])} rad/s")
-            yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(event.values[1])} rad/s")
-            zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(event.values[2])} rad/s")
+            content.xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(event.values[0])} rad/s")
+            content.yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(event.values[1])} rad/s")
+            content.zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(event.values[2])} rad/s")
 
             addEntry(1, 3, event.values, arrayOf("X", "Y", "Z"), arrayOf(
                     "#" + Integer.toHexString(ContextCompat.getColor(applicationContext, R.color.xAxisColor)),
@@ -51,12 +53,12 @@ class GyroscopeActivity : BaseBlockActivity() {
         gyroscopeManager = getSystemService(SENSOR_SERVICE) as SensorManager
         gyroscope = gyroscopeManager?.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
 
-        sensorName.text = gyroscope?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = gyroscope?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = gyroscope?.version.toString()
-        sensorPowerUsage.text = "${gyroscope?.power.toString()} mA"
-        sensorResolution.text = "${convertSuperScript(gyroscope?.resolution.toString())} rad/s"
-        sensorRange.text = "${convertSuperScript(gyroscope?.maximumRange.toString())} rad/s"
+        content.sensorName.text = gyroscope?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = gyroscope?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = gyroscope?.version.toString()
+        content.sensorPowerUsage.text = "${gyroscope?.power.toString()} mA"
+        content.sensorResolution.text = "${convertSuperScript(gyroscope?.resolution.toString())} rad/s"
+        content.sensorRange.text = "${convertSuperScript(gyroscope?.maximumRange.toString())} rad/s"
 
         createChart(10f, 3f, 0, legend = true, negative = true)
         startLiveChart()
@@ -66,15 +68,15 @@ class GyroscopeActivity : BaseBlockActivity() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.gyroscope_page)} :\n" +
-            "${xValue.text}\n" +
-            "${yValue.text}\n" +
-            "${zValue.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}"
+            "${content.xValue.text}\n" +
+            "${content.yValue.text}\n" +
+            "${content.zValue.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.gyroscope_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

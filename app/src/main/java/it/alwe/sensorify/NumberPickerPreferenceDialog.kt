@@ -9,7 +9,7 @@ import androidx.preference.PreferenceDialogFragmentCompat
 class NumberPickerPreferenceDialog : PreferenceDialogFragmentCompat() {
     private lateinit var numberPicker: NumberPicker
 
-    override fun onCreateDialogView(context: Context?): View {
+    override fun onCreateDialogView(context: Context): View {
         numberPicker = NumberPicker(context)
         numberPicker.minValue = NumberPickerPreference.MIN_VALUE
         numberPicker.maxValue = NumberPickerPreference.MAX_VALUE
@@ -17,7 +17,7 @@ class NumberPickerPreferenceDialog : PreferenceDialogFragmentCompat() {
         return numberPicker
     }
 
-    override fun onBindDialogView(view: View?) {
+    override fun onBindDialogView(view: View) {
         super.onBindDialogView(view)
         numberPicker.value = (preference as NumberPickerPreference).getPersistedInt()
     }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="description" type="String"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/container_bg"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/captureButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/screenshotDesc"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/screenshot"
+                app:tint="?attr/iconColor" />
+
+            <ImageButton
+                android:id="@+id/showInfoButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/aboutDesc"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/shareButton"
+                app:layout_constraintStart_toEndOf="@+id/captureButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/question_mark"
+                app:tint="?attr/iconColor" />
+
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/shareDesc"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/share"
+                app:tint="?attr/iconColor" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/sensorInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            app:el_duration="750"
+            app:el_expanded="false"
+            app:el_parallax="0">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{description}"
+                android:textColor="?attr/textColor"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorHint="?attr/textColor"
+                android:textColorLink="?attr/textColor"
+                android:textIsSelectable="true"
+                android:textSize="16sp"
+                android:autoLink="web"
+                android:linksClickable="true"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeStepGranularity="1px"
+                app:autoSizeTextType="uniform" />
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
+</layout>

@@ -15,16 +15,18 @@ import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.text.format.Formatter
+import android.view.LayoutInflater
 import androidx.core.app.ActivityCompat
 import androidx.core.text.HtmlCompat
 import com.devs.vectorchildfinder.VectorChildFinder
 import com.devs.vectorchildfinder.VectorDrawableCompat
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_connection.*
+import it.alwe.sensorify.databinding.ActivityConnectionBinding
 import java.util.*
 
-class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class ConnectionActivity : BaseBlockActivity<ActivityConnectionBinding>(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
     private var intentFilter: IntentFilter? = null
     private var connectionStatus = "offline"
     private var cSSID = ""
@@ -38,8 +40,9 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
     private var cOperator = ""
     private var cType = ""
 
-    override val contentView: Int
-        get() = R.layout.activity_connection
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityConnectionBinding {
+        return ActivityConnectionBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -59,42 +62,41 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
                 recreate()
             } else {
                 colorIconSignal(0)
-                blockMainInfoText.text = getString(R.string.state_text, getString(R.string.unavailableValue))
-                connectionTypeText.text = getString(R.string.connectionType, getString(R.string.connection_type_none))
-                ssid.text = getString(R.string.unavailableValue)
-                bssid.text = getString(R.string.unavailableValue)
-                ipAddress.text = getString(R.string.unavailableValue)
-                macAddress.text = getString(R.string.unavailableValue)
-                rssi.text = getString(R.string.unavailableValue)
-                frequency.text = getString(R.string.unavailableValue)
+                content.blockMainInfoText.text = getString(R.string.state_text, getString(R.string.unavailableValue))
+                content.connectionTypeText.text = getString(R.string.connectionType, getString(R.string.connection_type_none))
+                content.ssid.text = getString(R.string.unavailableValue)
+                content.bssid.text = getString(R.string.unavailableValue)
+                content.ipAddress.text = getString(R.string.unavailableValue)
+                content.macAddress.text = getString(R.string.unavailableValue)
+                content.rssi.text = getString(R.string.unavailableValue)
+                content.frequency.text = getString(R.string.unavailableValue)
                 //imei.text = getString(R.string.unavailableValue)
-                operator.text = getString(R.string.unavailableValue)
-                speed.text = getString(R.string.unavailableValue)
+                content.operator.text = getString(R.string.unavailableValue)
+                content.speed.text = getString(R.string.unavailableValue)
             }
         }
     }
 
     private fun colorIconSignal(signalLevel: Int) {
-        val vector = VectorChildFinder(this, R.drawable.ic_wifi, wifiIcon)
+        val vector = VectorChildFinder(this, R.drawable.ic_wifi, content.wifiIcon)
         val path0: VectorDrawableCompat.VFullPath = vector.findPathByName("cOff")
-        path0.fillColor = if (signalLevel == 0) blockInformations.currentTextColor else Color.TRANSPARENT
+        path0.fillColor = if (signalLevel == 0) content.blockInformations.currentTextColor else Color.TRANSPARENT
         val path1: VectorDrawableCompat.VFullPath = vector.findPathByName("wifi1")
-        path1.fillColor = if (signalLevel >= 1) blockInformations.currentTextColor else Color.TRANSPARENT
+        path1.fillColor = if (signalLevel >= 1) content.blockInformations.currentTextColor else Color.TRANSPARENT
         val path2: VectorDrawableCompat.VFullPath = vector.findPathByName("wifi2")
-        path2.fillColor = if (signalLevel >= 2) blockInformations.currentTextColor else Color.TRANSPARENT
+        path2.fillColor = if (signalLevel >= 2) content.blockInformations.currentTextColor else Color.TRANSPARENT
         val path3: VectorDrawableCompat.VFullPath = vector.findPathByName("wifi3")
-        path3.fillColor = if (signalLevel >= 3) blockInformations.currentTextColor else Color.TRANSPARENT
+        path3.fillColor = if (signalLevel >= 3) content.blockInformations.currentTextColor else Color.TRANSPARENT
         val path4: VectorDrawableCompat.VFullPath = vector.findPathByName("wifi4")
-        path4.fillColor = if (signalLevel >= 4) blockInformations.currentTextColor else Color.TRANSPARENT
-        wifiIcon.invalidate()
+        path4.fillColor = if (signalLevel >= 4) content.blockInformations.currentTextColor else Color.TRANSPARENT
+        content.wifiIcon.invalidate()
     }
 
     private val connectionListener: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             var connectionState = 0
-
-			val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				val networkCapabilities = connectivityManager.activeNetwork
 				val actNw = connectivityManager.getNetworkCapabilities(networkCapabilities)
@@ -195,33 +197,33 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
                     cSpeed = getString(R.string.unavailableValue)
                 }
             }
-            blockMainInfoText.text = getString(R.string.state_text, connectionStatus)
-            connectionTypeText.text = getString(R.string.connectionType, cType)
-            ssid.text = cSSID
-            bssid.text = cBSSID
-            ipAddress.text = cIP
-            macAddress.text = cMAC
-            rssi.text = cRSSI
-            frequency.text = cFrequency
+            content.blockMainInfoText.text = getString(R.string.state_text, connectionStatus)
+            content.connectionTypeText.text = getString(R.string.connectionType, cType)
+            content.ssid.text = cSSID
+            content.bssid.text = cBSSID
+            content.ipAddress.text = cIP
+            content.macAddress.text = cMAC
+            content.rssi.text = cRSSI
+            content.frequency.text = cFrequency
             //imei.text = cIMEI
-            operator.text = cOperator
-            speed.text = cSpeed
+            content.operator.text = cOperator
+            content.speed.text = cSpeed
         }
     }
 
     override fun addCode() {
-        blockMainInfoText.text = getString(R.string.state_text, getString(R.string.unavailableValue))
-        connectionTypeText.text = getString(R.string.connectionType, getString(R.string.connection_type_none))
-        simState.text = getSimState()
+        content.blockMainInfoText.text = getString(R.string.state_text, getString(R.string.unavailableValue))
+        content.connectionTypeText.text = getString(R.string.connectionType, getString(R.string.connection_type_none))
+        content.simState.text = getSimState()
 
         intentFilter = IntentFilter()
         intentFilter?.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
         intentFilter?.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
         @Suppress("DEPRECATION") intentFilter?.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
 
-        connectionButton.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
+        content.connectionButton.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
 
-        mobileButton.setOnClickListener { startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS)) }
+        content.mobileButton.setOnClickListener { startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS)) }
 
         var connectionInfo = getString(R.string.connectionInfo)
 
@@ -232,7 +234,7 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
             R.string.sensorNote
         )}</b><br>${getText(R.string.wifi_android_perms)}"
 
-        sensorInfoText.text = HtmlCompat.fromHtml(connectionInfo, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        content.sensorInfoText.text = HtmlCompat.fromHtml(connectionInfo, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
             || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
@@ -290,18 +292,18 @@ class ConnectionActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.connection_page)} :\n" +
-            "${blockMainInfoText.text}\n" +
-            "${connectionTypeText.text}\n" +
-            "${getString(R.string.wifi_ssid)} ${ssid.text}\n" +
-            "${getString(R.string.wifi_bssid)} ${bssid.text}\n" +
-            "${getString(R.string.wifi_ip)} ${ipAddress.text}\n" +
-            "${getString(R.string.wifi_mac)} ${macAddress.text}\n" +
-            "${getString(R.string.wifi_rssi)} ${rssi.text}\n" +
-            "${getString(R.string.wifi_frequency)} ${frequency.text}\n" +
+            "${content.blockMainInfoText.text}\n" +
+            "${content.connectionTypeText.text}\n" +
+            "${getString(R.string.wifi_ssid)} ${content.ssid.text}\n" +
+            "${getString(R.string.wifi_bssid)} ${content.bssid.text}\n" +
+            "${getString(R.string.wifi_ip)} ${content.ipAddress.text}\n" +
+            "${getString(R.string.wifi_mac)} ${content.macAddress.text}\n" +
+            "${getString(R.string.wifi_rssi)} ${content.rssi.text}\n" +
+            "${getString(R.string.wifi_frequency)} ${content.frequency.text}\n" +
             //"${getString(R.string.connectionIMEI)} ${imei.text}\n" +
-            "${getString(R.string.mobileOperator)} ${operator.text}\n" +
-            "${getString(R.string.simState)} ${simState.text}\n" +
-            "${getString(R.string.connectionSpeed)} ${speed.text}"
+            "${getString(R.string.mobileOperator)} ${content.operator.text}\n" +
+            "${getString(R.string.simState)} ${content.simState.text}\n" +
+            "${getString(R.string.connectionSpeed)} ${content.speed.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.connection_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

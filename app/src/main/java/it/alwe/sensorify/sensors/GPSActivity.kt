@@ -10,8 +10,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -21,13 +21,15 @@ import com.devs.vectorchildfinder.VectorDrawableCompat
 import com.google.android.material.snackbar.Snackbar
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_gps.*
+import it.alwe.sensorify.databinding.ActivityGpsBinding
 
-class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class GPSActivity : BaseBlockActivity<ActivityGpsBinding>(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
     private var locationManager: LocationManager? = null
 
-    override val contentView: Int
-        get() = R.layout.activity_gps
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityGpsBinding {
+        return ActivityGpsBinding.inflate(inflater)
+    }
 
     @SuppressLint("MissingPermission")
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -45,7 +47,7 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
                     setActionTextColor(ContextCompat.getColor(context, R.color.monoAxisColor))
                     show()
                 }
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
             }
         }
     }
@@ -54,10 +56,10 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
         super.onResume()
 
         if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            mapsButton.isEnabled = true
+            content.mapsButton.isEnabled = true
             colorIconGPS(Color.GREEN)
         } else {
-            mapsButton.isEnabled = false
+            content.mapsButton.isEnabled = false
             colorIconGPS(Color.RED)
         }
 
@@ -81,40 +83,38 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
 
         override fun onProviderEnabled(provider: String) { colorIconGPS(Color.GREEN) }
 
-        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-
         override fun onLocationChanged(location: Location) {
-            longitudeValue.text = location.longitude.toString()
-            latitudeValue.text = location.latitude.toString()
-            altitudeValue.text = location.altitude.toString()
+            content.longitudeValue.text = location.longitude.toString()
+            content.latitudeValue.text = location.latitude.toString()
+            content.altitudeValue.text = location.altitude.toString()
         }
     }
 
     private fun colorIconGPS(color: Int) {
-        if (color == Color.GREEN) blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_enabled))
-        else if (color == Color.RED) blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_disabled))
-        val vector = VectorChildFinder(this, R.drawable.ic_gps, gpsIcon)
+        if (color == Color.GREEN) content.blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_enabled))
+        else if (color == Color.RED) content.blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_disabled))
+        val vector = VectorChildFinder(this, R.drawable.ic_gps, content.gpsIcon)
         val path1: VectorDrawableCompat.VFullPath = vector.findPathByName("gpsCircle")
         path1.fillColor = color
         val path2: VectorDrawableCompat.VFullPath = vector.findPathByName("gpsBG")
-        path2.fillColor = blockInformations.currentTextColor
-        gpsIcon.invalidate()
+        path2.fillColor = content.blockInformations.currentTextColor
+        content.gpsIcon.invalidate()
     }
 
     override fun addCode() {
-        blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_disabled))
+        content.blockMainInfoText.text = getString(R.string.state_text, getString(R.string.gps_disabled))
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         colorIconGPS(Color.RED)
 
-        mapsButton.setOnClickListener {
-            val mapsIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${latitudeValue.text},${longitudeValue.text}"))
+        content.mapsButton.setOnClickListener {
+            val mapsIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:${content.latitudeValue.text},${content.longitudeValue.text}"))
             mapsIntent.setPackage("com.google.android.apps.maps")
             if (mapsIntent.resolveActivity(packageManager) != null) startActivity(mapsIntent)
         }
 
-        gpsActivate.setOnClickListener {
+        content.gpsActivate.setOnClickListener {
             val gpsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(gpsIntent)
         }
@@ -129,10 +129,10 @@ class GPSActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResu
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.gps_page)} :\n" +
-            "${blockMainInfoText.text}\n" +
-            "${getString(R.string.latitude)} ${latitudeValue.text}\n" +
-            "${getString(R.string.longitude)} ${longitudeValue.text}\n" +
-            "${getString(R.string.altitude)} ${altitudeValue.text}"
+            "${content.blockMainInfoText.text}\n" +
+            "${getString(R.string.latitude)} ${content.latitudeValue.text}\n" +
+            "${getString(R.string.longitude)} ${content.longitudeValue.text}\n" +
+            "${getString(R.string.altitude)} ${content.altitudeValue.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.gps_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

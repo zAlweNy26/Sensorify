@@ -37,7 +37,7 @@ class MissingListAdapter(var context: Context, var missingSensors: List<MissingS
         var sensorIcon: ImageButton = itemView.findViewById(R.id.sensorIcon)
         var toggleSensor: ImageButton = itemView.findViewById(R.id.toggleSensor)
 
-        private val clickListener = View.OnClickListener { view ->
+        private val clickListener = View.OnClickListener { _ ->
             missingSensors[adapterPosition].isExpanded = !missingSensors[adapterPosition].isExpanded
             toggleSensor.animate().setDuration(300).rotation(if (missingSensors[adapterPosition].isExpanded) 180f else 0f)
             notifyItemChanged(adapterPosition)

@@ -28,14 +28,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+        sharedPrefs = context?.let { PreferenceManager.getDefaultSharedPreferences(it) }
 
         prefsEditor = sharedPrefs?.edit()
 
         super.onCreate(savedInstanceState)
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
         var numFiles = 0
         var dir: File? = null
         // TODO : PERMETTERE LA CANCELLAZIONE DEGLI SCREENSHOT FATTI
@@ -46,21 +46,21 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
             for (file in dir.listFiles()!!) if (file.isFile) numFiles += 1
         }
 
-        if (preference?.key == "delete_screenshots" && numFiles > 0) {
+        if (preference.key == "delete_screenshots" && numFiles > 0) {
             val messageText = getString(R.string.settings_delete_screenshots_question)
             val alertBuilder = AlertDialog.Builder(context,
                 if (sharedPrefs?.getInt("themeMode", R.style.LightTheme) == R.style.LightTheme) R.style.lightDialogAlertTheme else R.style.darkDialogAlertTheme)
                 .setTitle(getString(R.string.settings_delete_screenshots))
                 .setMessage(getString(R.string.settings_delete_screenshots_question))
                 .setIcon(R.drawable.ic_delete)
-                .setPositiveButton(android.R.string.ok) { dialog, whichButton -> for (file in dir?.listFiles()!!) file.delete() }
+                .setPositiveButton(android.R.string.ok) { _, _ -> for (file in dir?.listFiles()!!) file.delete() }
                 .setNegativeButton(android.R.string.cancel, null)
             val alertDialog = alertBuilder.show()
             val messageView = alertDialog.findViewById(android.R.id.message) as TextView
             if (Build.VERSION.SDK_INT >= 24) messageView.text = HtmlCompat.fromHtml(messageText.replace("0", "<b>${numFiles}</b>"), HtmlCompat.FROM_HTML_MODE_LEGACY)
             else messageView.text = HtmlCompat.fromHtml(messageText.replace("0", "<b>${numFiles}</b>"), HtmlCompat.FROM_HTML_MODE_LEGACY)
             messageView.gravity = Gravity.CENTER
-        } else if (preference?.key == "delete_screenshots" && numFiles == 0) {
+        } else if (preference.key == "delete_screenshots" && numFiles == 0) {
             val alertBuilder = AlertDialog.Builder(context,
                 if (sharedPrefs?.getInt("themeMode", R.style.LightTheme) == R.style.LightTheme) R.style.lightDialogAlertTheme else R.style.darkDialogAlertTheme)
                 .setTitle(getString(R.string.settings_delete_screenshots_title))
@@ -75,7 +75,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         return super.onPreferenceTreeClick(preference)
     }
 
-    override fun onDisplayPreferenceDialog(preference: Preference?) {
+    override fun onDisplayPreferenceDialog(preference: Preference) {
         if (parentFragmentManager.findFragmentByTag("NumberPickerDialog") != null) return
         if (preference is NumberPickerPreference) {
             val dialog = NumberPickerPreferenceDialog.newInstance(preference.key)
@@ -99,12 +99,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
         findPreference<ListPreference>("pref_language")?.value = sharedPrefs?.getString("language", Locale.getDefault().language)
 
-        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onStop() {
         super.onStop()
-        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {

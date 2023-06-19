@@ -5,18 +5,20 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_proximity.*
+import it.alwe.sensorify.databinding.ActivityProximityBinding
 
-class ProximityActivity : BaseBlockActivity() {
+class ProximityActivity : BaseBlockActivity<ActivityProximityBinding>() {
     private var proximityManager: SensorManager? = null
     private var proximity: Sensor? = null
     private var distanceUnit: String? = "m"
 
-    override val contentView: Int
-        get() = R.layout.activity_proximity
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityProximityBinding {
+        return ActivityProximityBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -39,42 +41,42 @@ class ProximityActivity : BaseBlockActivity() {
 
             when (distanceUnit) {
                 "m" -> {
-                    sensorResolution.text = "${convertSuperScript(resolution)} cm"
-                    sensorRange.text = "${convertSuperScript(maxRange)} cm"
-                    blockMainInfoText.text = getString(R.string.proximityText, "${decimalPrecision?.format(event.values[0])} cm")
+                    content.sensorResolution.text = "${convertSuperScript(resolution)} cm"
+                    content.sensorRange.text = "${convertSuperScript(maxRange)} cm"
+                    content.blockMainInfoText.text = getString(R.string.proximityText, "${decimalPrecision?.format(event.values[0])} cm")
                 }
                 "ft" -> {
-                    sensorResolution.text = "${convertSuperScript((resolution.toDouble() / 2.54).toString())} in"
-                    sensorRange.text = "${convertSuperScript((maxRange.toDouble() / 2.54).toString())} in"
-                    blockMainInfoText.text = getString(R.string.proximityText, "${decimalPrecision?.format(event.values[0] / 2.54)} in")
+                    content.sensorResolution.text = "${convertSuperScript((resolution.toDouble() / 2.54).toString())} in"
+                    content.sensorRange.text = "${convertSuperScript((maxRange.toDouble() / 2.54).toString())} in"
+                    content.blockMainInfoText.text = getString(R.string.proximityText, "${decimalPrecision?.format(event.values[0] / 2.54)} in")
                 }
             }
         }
     }
 
     override fun addCode() {
-        blockMainInfoText.text = getString(R.string.proximityText, getString(R.string.unknownValue))
+        content.blockMainInfoText.text = getString(R.string.proximityText, getString(R.string.unknownValue))
 
         proximityManager = getSystemService(SENSOR_SERVICE) as SensorManager
         proximity = proximityManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
-        sensorName.text = proximity?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = proximity?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = proximity?.version.toString()
-        sensorPowerUsage.text = "${proximity?.power.toString()} mA"
+        content.sensorName.text = proximity?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = proximity?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = proximity?.version.toString()
+        content.sensorPowerUsage.text = "${proximity?.power.toString()} mA"
     }
 
     override fun onShareButtonClick() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.proximity_page)} :\n" +
-            "${blockMainInfoText.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}"
+            "${content.blockMainInfoText.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.proximity_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

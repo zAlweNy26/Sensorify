@@ -7,19 +7,22 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.widget.SeekBar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_sound_meter.*
+import it.alwe.sensorify.databinding.ActivitySoundMeterBinding
 import java.io.IOException
 import java.util.*
 import kotlin.math.log10
 
-class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class SoundMeterActivity : BaseBlockActivity<ActivitySoundMeterBinding>(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
     private var playToPause: AnimatedVectorDrawable? = null
     private var pauseToPlay: AnimatedVectorDrawable? = null
     private var playOrPause: Boolean = false
@@ -30,8 +33,9 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
     private var recorderState = false
     private var timer = Timer()
 
-    override val contentView: Int
-        get() = R.layout.activity_sound_meter
+    override fun setupViewBinding(inflater: LayoutInflater): ActivitySoundMeterBinding {
+        return ActivitySoundMeterBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -40,7 +44,7 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
         else {
             if (!recorderState) {
                 startRecorder()
-                toggleThread(true)
+                //toggleThread(true)
             }
         }
     }
@@ -48,7 +52,7 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
     override fun onPause() {
         super.onPause()
         if (recorderState) {
-            toggleThread(false)
+            //toggleThread(false)
             recorderState = false
             try {
                 timer.cancel()
@@ -77,14 +81,14 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
         if (grantResults.isNotEmpty()) {
             if (grantResults[0] == 0 && !recorderState) {
                 startRecorder()
-                toggleThread(true)
+                //toggleThread(true)
             }
         }
     }
 
     override fun addCode() {
-        amplitudeText.text = getString(R.string.amplitudeText, 0)
-        noiseText.text = getString(R.string.noiseText, "0")
+        content.amplitudeText.text = getString(R.string.amplitudeText, 0)
+        content.noiseText.text = getString(R.string.noiseText, "0")
 
         createChart(10f, 1f, 0, legend = false, negative = true)
 
@@ -95,23 +99,23 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 1)
         else {
             startRecorder()
-            toggleThread(true)
+            //toggleThread(true)
         }
 
-        audioButton.setOnClickListener {
+        content.audioButton.setOnClickListener {
             val drawable = if (playOrPause) pauseToPlay else playToPause
-            audioButton.setImageDrawable(drawable)
+            content.audioButton.setImageDrawable(drawable)
             drawable?.start()
 
             if (!playOrPause) {
                 mediaPlayer = MediaPlayer.create(this, R.raw.clean_speaker)
-                audioBar.max = mediaPlayer!!.duration / 1000
+                content.audioBar.max = mediaPlayer!!.duration / 1000
                 runnable = Runnable {
                     try {
-                        audioBar.progress = mediaPlayer!!.currentPosition / 1000
+                        content.audioBar.progress = mediaPlayer!!.currentPosition / 1000
                         handler.postDelayed(runnable, 1000)
                     } catch (e: Exception) {
-                        audioBar.progress = 0
+                        content.audioBar.progress = 0
                     }
                 }
                 handler.postDelayed(runnable,1000)
@@ -121,14 +125,14 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
             playOrPause = !playOrPause
         }
 
-        audioBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        content.audioBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
                 if (fromUser) mediaPlayer?.seekTo(progress * 1000)
-                if (progress == audioBar.max) {
+                if (progress == content.audioBar.max) {
                     mediaPlayer?.seekTo(0)
 
                     val drawable = if (playOrPause) pauseToPlay else playToPause
-                    audioButton.setImageDrawable(drawable)
+                    content.audioButton.setImageDrawable(drawable)
                     drawable?.start()
 
                     mediaPlayer?.stop()
@@ -147,16 +151,31 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
     }
 
     private fun startRecorder() {
-        soundRecorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) MediaRecorder.OutputFormat.MPEG_2_TS else */MediaRecorder.OutputFormat.THREE_GPP)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) setOutputFile(File.createTempFile("audio.ts", null, baseContext.cacheDir))
-            else */setOutputFile("${externalCacheDir?.absolutePath}/audio.3gp")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            soundRecorder = MediaRecorder(applicationContext).apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) MediaRecorder.OutputFormat.MPEG_2_TS else */MediaRecorder.OutputFormat.THREE_GPP)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) setOutputFile(File.createTempFile("audio.ts", null, baseContext.cacheDir))
+                else */setOutputFile("${externalCacheDir?.absolutePath}/audio.3gp")
 
-            try { prepare() } catch (e: IOException) { e.printStackTrace() }
+                try { prepare() } catch (e: IOException) { e.printStackTrace() }
 
-            start()
+                start()
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            soundRecorder = MediaRecorder().apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) MediaRecorder.OutputFormat.MPEG_2_TS else */MediaRecorder.OutputFormat.THREE_GPP)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) setOutputFile(File.createTempFile("audio.ts", null, baseContext.cacheDir))
+                else */setOutputFile("${externalCacheDir?.absolutePath}/audio.3gp")
+
+                try { prepare() } catch (e: IOException) { e.printStackTrace() }
+
+                start()
+            }
         }
         timer = Timer()
         timer.scheduleAtFixedRate(recorderTask(soundRecorder), 0, 250)
@@ -170,9 +189,9 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
                 try { soundArray[0] = (20 * log10(recorder.maxAmplitude / 2700.0)).toFloat() }
                 catch (e: IllegalStateException) { soundArray[0] = 0f }
                 if (soundArray[0].isFinite()) {
-                    try { amplitudeText.text = getString(R.string.amplitudeText, recorder.maxAmplitude) }
-                    catch (e: IllegalStateException) { amplitudeText.text = getString(R.string.amplitudeText, 0) }
-                    noiseText.text = getString(R.string.noiseText, decimalPrecision?.format(soundArray[0]))
+                    try { content.amplitudeText.text = getString(R.string.amplitudeText, recorder.maxAmplitude) }
+                    catch (e: IllegalStateException) { content.amplitudeText.text = getString(R.string.amplitudeText, 0) }
+                    content.noiseText.text = getString(R.string.noiseText, decimalPrecision?.format(soundArray[0]))
                     addEntry(1, 1, soundArray, arrayOf("dB"), arrayOf("#" + Integer.toHexString(ContextCompat.getColor(applicationContext, R.color.monoAxisColor))))
                 }
             }
@@ -183,8 +202,8 @@ class SoundMeterActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissi
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.sound_meter_page)} :\n" +
-                "${noiseText.text}\n" +
-                "${amplitudeText.text}"
+                "${content.noiseText.text}\n" +
+                "${content.amplitudeText.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sound_meter_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

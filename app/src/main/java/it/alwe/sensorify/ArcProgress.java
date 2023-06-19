@@ -34,13 +34,11 @@ public class ArcProgress extends View {
     private String suffixText;
     private float suffixTextSize;
     private float suffixTextPadding;
-    private final String defaultSuffixText = "%";
     private final float defaultSuffixTextSize;
     private final float defaultSuffixTextPadding;
     private String belowText;
     private float belowTextSize;
     private float belowTextPadding;
-    private final String defaultBelowText = "Example";
     private final float defaultBelowTextSize;
     private final float defaultBelowTextPadding;
     private float arcBottomHeight;
@@ -48,10 +46,7 @@ public class ArcProgress extends View {
     private final int defaultUnfilledColor = getResources().getColor(R.color.totalBlack);
     private final int defaultTextColor = getResources().getColor(R.color.totalBlack);
     private final float defaultStrokeWidth;
-    private final String defaultBottomText = "Example";
     private final float defaultBottomTextSize;
-    private final int defaultMax = 100;
-    private final float defaultAngle = 360 * 0.75f;
     private final float defaultTextSize;
     private final int defaultMinSize;
 
@@ -101,17 +96,22 @@ public class ArcProgress extends View {
         unfilledStrokeColor = attributes.getColor(R.styleable.ArcProgress_unfilled_color, defaultUnfilledColor);
         textColor = attributes.getColor(R.styleable.ArcProgress_text_color, defaultTextColor);
         textSize = attributes.getDimension(R.styleable.ArcProgress_text_size, defaultTextSize);
+        float defaultAngle = 360 * 0.75f;
         arcAngle = attributes.getFloat(R.styleable.ArcProgress_angle, defaultAngle);
+        int defaultMax = 100;
         setMax(attributes.getInt(R.styleable.ArcProgress_max, defaultMax));
         setProgress(attributes.getFloat(R.styleable.ArcProgress_progress, 0));
         strokeWidth = attributes.getDimension(R.styleable.ArcProgress_stroke_width, defaultStrokeWidth);
         suffixTextSize = attributes.getDimension(R.styleable.ArcProgress_suffix_text_size, defaultSuffixTextSize);
+        String defaultSuffixText = "%";
         suffixText = TextUtils.isEmpty(attributes.getString(R.styleable.ArcProgress_suffix_text)) ? defaultSuffixText : attributes.getString(R.styleable.ArcProgress_suffix_text);
         suffixTextPadding = attributes.getDimension(R.styleable.ArcProgress_suffix_text_padding, defaultSuffixTextPadding);
         belowTextSize = attributes.getDimension(R.styleable.ArcProgress_below_text_size, defaultBelowTextSize);
+        String defaultBelowText = "Example";
         belowText = TextUtils.isEmpty(attributes.getString(R.styleable.ArcProgress_below_text)) ? defaultBelowText : attributes.getString(R.styleable.ArcProgress_below_text);
         belowTextPadding = attributes.getDimension(R.styleable.ArcProgress_below_text_padding, defaultBelowTextPadding);
         bottomTextSize = attributes.getDimension(R.styleable.ArcProgress_bottom_text_size, defaultBottomTextSize);
+        String defaultBottomText = "Example";
         bottomText = TextUtils.isEmpty(attributes.getString(R.styleable.ArcProgress_bottom_text)) ? defaultBottomText : attributes.getString(R.styleable.ArcProgress_bottom_text);
     }
 

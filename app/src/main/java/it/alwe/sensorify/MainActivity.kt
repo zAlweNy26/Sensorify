@@ -25,10 +25,11 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
+import it.alwe.sensorify.databinding.ActivityMainBinding
 import it.alwe.sensorify.sensors.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+    private lateinit var binding: ActivityMainBinding
     private var sharedPrefs: SharedPreferences? = null
     private var blockIntent: Intent? = null
     private var intAd: InterstitialAd? = null
@@ -67,30 +68,31 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-
         MobileAds.setRequestConfiguration(RequestConfiguration.Builder()
             .setTestDeviceIds(arrayListOf(
                 AdRequest.DEVICE_ID_EMULATOR,
-                "D88841A06FB3B7B7314D4A021C890B99"))
+                "BB64A34AE46577580B9E2E8BC34EC579"))
             .build()
         )
 
         loadAd()
 
-        setSupportActionBar(toolBar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_star)
 
-        gridBlocks.setSelection(sharedPrefs?.getInt("scrollPosition", 0)!!)
-        gridBlocks.smoothScrollBy(sharedPrefs?.getInt("scrollOffset", 0)!!, 0)
+        binding.gridBlocks.setSelection(sharedPrefs?.getInt("scrollPosition", 0)!!)
+        binding.gridBlocks.smoothScrollBy(sharedPrefs?.getInt("scrollOffset", 0)!!, 0)
 
-        gridBlocks.adapter = BlocksAdapter(this, entries, icons)
-        gridBlocks.setOnItemClickListener { parent, view, position, id ->
+        binding.gridBlocks.adapter = BlocksAdapter(this, entries, icons)
+        binding.gridBlocks.setOnItemClickListener { parent, _, position, _ ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             blockIntent = Intent(applicationContext, activities[selectedItem.toInt()])
-            gridBlocks.onSaveInstanceState()
+            binding.gridBlocks.onSaveInstanceState()
             Log.w("AdView", "adTimes : $adTimes")
             if (intAd != null && adTimes % 5 == 0) {
                 intAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
@@ -102,7 +104,7 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         Log.w("AdView", "onAdFailedToShowFullScreenContent : $adError")
                         intAd = null
                     }
@@ -145,9 +147,9 @@ class MainActivity : CommonActivity(), ActivityCompat.OnRequestPermissionsResult
     override fun onStop() {
         super.onStop()
         var offset = 15 * resources.displayMetrics.density
-        val firstChild = gridBlocks.getChildAt(0)
+        val firstChild = binding.gridBlocks.getChildAt(0)
         offset -= firstChild?.top ?: 0
-        sharedPrefs?.edit()?.putInt("scrollPosition", gridBlocks.firstVisiblePosition)?.apply()
+        sharedPrefs?.edit()?.putInt("scrollPosition", binding.gridBlocks.firstVisiblePosition)?.apply()
         sharedPrefs?.edit()?.putInt("scrollOffset", offset.toInt())?.apply()
     }
 

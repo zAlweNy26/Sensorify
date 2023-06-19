@@ -21,6 +21,7 @@ import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,10 +29,12 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.viewbinding.ViewBinding
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -44,7 +47,9 @@ import net.cachapa.expandablelayout.ExpandableLayout
 import java.io.IOException
 import kotlin.math.abs
 
-abstract class BaseBlockActivity : CommonActivity() {
+abstract class BaseBlockActivity<ViewBindingType : ViewBinding> : CommonActivity() {
+    private var _binding: ViewBindingType? = null
+    protected val content get() = requireNotNull(_binding)
     private var liveChart: LineChart? = null
     private var threadChart: Thread? = null
     private var screenshotIcon: AnimatedVectorDrawable? = null
@@ -54,10 +59,13 @@ abstract class BaseBlockActivity : CommonActivity() {
     private var lsRegistered = false
     var decimalPrecision: String? = "%.2f"
 
+    abstract fun setupViewBinding(inflater: LayoutInflater): ViewBindingType
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(contentView)
+        _binding = setupViewBinding(layoutInflater)
+        setContentView(requireNotNull(_binding).root)
 
         setSupportActionBar(findViewById(R.id.toolBar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -78,7 +86,6 @@ abstract class BaseBlockActivity : CommonActivity() {
 
                     val rootView = window.decorView.findViewById<View>(R.id.blockScrollView)
                     val screenView: View = rootView.rootView
-                    @Suppress("DEPRECATION")
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) screenView.isDrawingCacheEnabled = true
                     val bitmap = Bitmap.createBitmap(findViewById<ScrollView>(R.id.blockScrollView).getChildAt(0).width,
                         findViewById<ScrollView>(R.id.blockScrollView).getChildAt(0).height, Bitmap.Config.ARGB_8888)
@@ -86,7 +93,6 @@ abstract class BaseBlockActivity : CommonActivity() {
                     val bitmapCanvas = Canvas(bitmap)
                     bitmapCanvas.drawColor(Color.parseColor("#" + Integer.toHexString(colorId)))
                     findViewById<ScrollView>(R.id.blockScrollView).draw(bitmapCanvas)
-                    @Suppress("DEPRECATION")
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) screenView.isDrawingCacheEnabled = false
 
                     val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -146,6 +152,16 @@ abstract class BaseBlockActivity : CommonActivity() {
             }
         }
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val mainIntent = Intent(applicationContext, MainActivity::class.java)
+                mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(mainIntent)
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                finish()
+            }
+        })
+
         addCode()
     }
 
@@ -156,17 +172,8 @@ abstract class BaseBlockActivity : CommonActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val mainIntent = Intent(this, MainActivity::class.java)
-        mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(mainIntent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -241,8 +248,10 @@ abstract class BaseBlockActivity : CommonActivity() {
     }
 
     fun toggleThread(value: Boolean) {
-        if (threadChart == null && value) threadChart?.start()
-        else if (threadChart != null && !value) threadChart?.interrupt()
+        if (threadChart != null) {
+            if (value) threadChart?.start()
+            else threadChart?.interrupt()
+        }
     }
 
     fun startLiveChart() {
@@ -420,6 +429,4 @@ abstract class BaseBlockActivity : CommonActivity() {
     protected abstract fun onShareButtonClick()
 
     protected abstract fun addCode()
-
-    protected abstract val contentView: Int
 }

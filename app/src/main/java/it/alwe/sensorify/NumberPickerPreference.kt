@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.DialogPreference
 
-class NumberPickerPreference(context: Context?, attrs: AttributeSet?) : DialogPreference(context, attrs) {
+class NumberPickerPreference(context: Context, attrs: AttributeSet?) : DialogPreference(context, attrs) {
 
     override fun getSummary(): CharSequence {
         return getPersistedInt(INITIAL_VALUE).toString()

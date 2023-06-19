@@ -5,32 +5,34 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_accelerometer.*
+import it.alwe.sensorify.databinding.ActivityAccelerometerBinding
 
-class AccelerometerActivity : BaseBlockActivity() {
+class AccelerometerActivity : BaseBlockActivity<ActivityAccelerometerBinding>() {
     private var accelerometerManager: SensorManager? = null
     private var accelerometer: Sensor? = null
     private var distanceUnit: String? = "m"
 
-    override val contentView: Int
-        get() = R.layout.activity_accelerometer
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityAccelerometerBinding {
+        return ActivityAccelerometerBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
         distanceUnit = sharedPrefs.getString("distanceUnit", "m")
         setListenerRegistered(true, accelerometerManager!!, accelerometerListener, accelerometer!!)
-        toggleThread(true)
+        //toggleThread(true)
     }
 
     override fun onPause() {
         super.onPause()
         setListenerRegistered(false, accelerometerManager!!, accelerometerListener, accelerometer!!)
-        toggleThread(false)
+        //toggleThread(false)
     }
 
     private val accelerometerListener: SensorEventListener = object : SensorEventListener {
@@ -56,11 +58,11 @@ class AccelerometerActivity : BaseBlockActivity() {
                 }
             }
 
-            xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(accelerometerArray[0])} $distanceUnit/s²")
-            yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(accelerometerArray[1])} $distanceUnit/s²")
-            zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(accelerometerArray[2])} $distanceUnit/s²")
-            sensorResolution.text = "${convertSuperScript(resolution)} $distanceUnit/s²"
-            sensorRange.text = "${convertSuperScript(maxRange)} $distanceUnit/s²"
+            content.xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(accelerometerArray[0])} $distanceUnit/s²")
+            content.yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(accelerometerArray[1])} $distanceUnit/s²")
+            content.zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(accelerometerArray[2])} $distanceUnit/s²")
+            content.sensorResolution.text = "${convertSuperScript(resolution)} $distanceUnit/s²"
+            content.sensorRange.text = "${convertSuperScript(maxRange)} $distanceUnit/s²"
 
             addEntry(1, 3, accelerometerArray, arrayOf("X", "Y", "Z"), arrayOf(
                     "#" + Integer.toHexString(ContextCompat.getColor(applicationContext, R.color.xAxisColor)),
@@ -72,17 +74,17 @@ class AccelerometerActivity : BaseBlockActivity() {
     }
 
     override fun addCode() {
-        xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
-        yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
-        zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
+        content.xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
+        content.yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
+        content.zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
 
         accelerometerManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = accelerometerManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        sensorName.text = accelerometer?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = accelerometer?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = accelerometer?.version.toString()
-        sensorPowerUsage.text = "${accelerometer?.power.toString()} mA"
+        content.sensorName.text = accelerometer?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = accelerometer?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = accelerometer?.version.toString()
+        content.sensorPowerUsage.text = "${accelerometer?.power.toString()} mA"
 
         createChart(10f, 3f, 0, legend = true, negative = true)
         startLiveChart()
@@ -93,15 +95,15 @@ class AccelerometerActivity : BaseBlockActivity() {
         sharingIntent.type = "text/plain"
         val sb = StringBuilder()
         sb.append("${getString(R.string.accelerometer_page)} :\n" +
-            "${xValue.text}\n" +
-            "${yValue.text}\n" +
-            "${zValue.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}")
+            "${content.xValue.text}\n" +
+            "${content.yValue.text}\n" +
+            "${content.zValue.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}")
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.accelerometer_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, sb.toString())
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

@@ -5,13 +5,14 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_temp.*
+import it.alwe.sensorify.databinding.ActivityTempBinding
 import kotlin.math.ln
 
-class TempActivity : BaseBlockActivity() {
+class TempActivity : BaseBlockActivity<ActivityTempBinding>() {
     private var tempHumidityManager: SensorManager? = null
     private var temperatureSensor: Sensor? = null
     private var humiditySensor: Sensor? = null
@@ -20,8 +21,9 @@ class TempActivity : BaseBlockActivity() {
     private var tempValue = 0f
     private var humidityValue = 0f
 
-    override val contentView: Int
-        get() = R.layout.activity_temp
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityTempBinding {
+        return ActivityTempBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -44,9 +46,9 @@ class TempActivity : BaseBlockActivity() {
             else if (event.sensor == humiditySensor) humidityValue = event.values[0]
 
             when (tempUnit) {
-                "°C" -> tempText.text = getString(R.string.tempText, "${decimalPrecision?.format(tempValue)} $tempUnit")
-                "°F" -> tempText.text = getString(R.string.tempText, "${decimalPrecision?.format(((tempValue * 1.8) + 32))} $tempUnit")
-                "K" -> tempText.text = getString(R.string.tempText, "${decimalPrecision?.format((tempValue + 273.15))} $tempUnit")
+                "°C" -> content.tempText.text = getString(R.string.tempText, "${decimalPrecision?.format(tempValue)} $tempUnit")
+                "°F" -> content.tempText.text = getString(R.string.tempText, "${decimalPrecision?.format(((tempValue * 1.8) + 32))} $tempUnit")
+                "K" -> content.tempText.text = getString(R.string.tempText, "${decimalPrecision?.format((tempValue + 273.15))} $tempUnit")
             }
 
             if (tempValue != 0f && humidityValue != 0f) {
@@ -54,27 +56,27 @@ class TempActivity : BaseBlockActivity() {
                 val dewPoint = 243.12 * h / (17.62 - h)
 
                 when (tempUnit) {
-                    "°C" -> dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(dewPoint)} $tempUnit")
-                    "°F" -> dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(((dewPoint * 1.8) + 32))} $tempUnit")
-                    "K" -> dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(((dewPoint + 273.15)))} $tempUnit")
+                    "°C" -> content.dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(dewPoint)} $tempUnit")
+                    "°F" -> content.dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(((dewPoint * 1.8) + 32))} $tempUnit")
+                    "K" -> content.dewPointText.text = getString(R.string.dewPointText, "${decimalPrecision?.format(((dewPoint + 273.15)))} $tempUnit")
                 }
-            } else dewPointText.text = getString(R.string.dewPointText, "0 $tempUnit")
+            } else content.dewPointText.text = getString(R.string.dewPointText, "0 $tempUnit")
         }
     }
 
     override fun addCode() {
-        tempText.text = getString(R.string.tempText, getString(R.string.unknownValue))
-        dewPointText.text = getString(R.string.dewPointText, getString(R.string.unknownValue))
+        content.tempText.text = getString(R.string.tempText, getString(R.string.unknownValue))
+        content.dewPointText.text = getString(R.string.dewPointText, getString(R.string.unknownValue))
 
         tempHumidityManager = getSystemService(SENSOR_SERVICE) as SensorManager
         temperatureSensor = tempHumidityManager?.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
 
-        sensorName.text = temperatureSensor?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = temperatureSensor?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = temperatureSensor?.version.toString()
-        sensorPowerUsage.text = "${temperatureSensor?.power.toString()} mA"
-        sensorResolution.text = "${convertSuperScript(temperatureSensor?.resolution.toString())} °C"
-        sensorRange.text = "${convertSuperScript(temperatureSensor?.maximumRange.toString())} °C"
+        content.sensorName.text = temperatureSensor?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = temperatureSensor?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = temperatureSensor?.version.toString()
+        content.sensorPowerUsage.text = "${temperatureSensor?.power.toString()} mA"
+        content.sensorResolution.text = "${convertSuperScript(temperatureSensor?.resolution.toString())} °C"
+        content.sensorRange.text = "${convertSuperScript(temperatureSensor?.maximumRange.toString())} °C"
 
         if (tempHumidityManager?.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) != null) {
             hasHumidity = true
@@ -87,14 +89,14 @@ class TempActivity : BaseBlockActivity() {
         sharingIntent.type = "text/plain"
         val sb = StringBuilder()
         sb.append(getString(R.string.temperature_page) + " :\n" +
-            "${tempText.text}\n" +
-            "${dewPointText.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}")
+            "${content.tempText.text}\n" +
+            "${content.dewPointText.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}")
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.temperature_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, sb.toString())
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

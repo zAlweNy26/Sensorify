@@ -6,13 +6,14 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_orientation.*
+import it.alwe.sensorify.databinding.ActivityOrientationBinding
 
-class OrientationActivity : BaseBlockActivity() {
+class OrientationActivity : BaseBlockActivity<ActivityOrientationBinding>() {
     private var orientationManager: SensorManager? = null
     private var accelerometer: Sensor? = null
     private var magnetometer: Sensor? = null
@@ -23,8 +24,9 @@ class OrientationActivity : BaseBlockActivity() {
     private var iMatrix = FloatArray(9)
     private var angleUnit: String? = "°"
 
-    override val contentView: Int
-        get() = R.layout.activity_orientation
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityOrientationBinding {
+        return ActivityOrientationBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -32,13 +34,13 @@ class OrientationActivity : BaseBlockActivity() {
         angleUnit = sharedPrefs.getString("angleUnit", "°")
         orientationManager?.registerListener(orientationListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
         orientationManager?.registerListener(orientationListener, magnetometer, SensorManager.SENSOR_DELAY_NORMAL)
-        toggleThread(true)
+        //toggleThread(true)
     }
 
     override fun onPause() {
         super.onPause()
         orientationManager?.unregisterListener(orientationListener)
-        toggleThread(false)
+        //toggleThread(false)
     }
 
     private val orientationListener: SensorEventListener = object : SensorEventListener {
@@ -67,7 +69,7 @@ class OrientationActivity : BaseBlockActivity() {
                 val azimuth = (Math.toDegrees(orientationValues[0].toDouble()) + 360  % 360)
                 var pointText = ""
 
-                compassImage.rotation = -azimuth.toFloat()
+                content.compassImage.rotation = -azimuth.toFloat()
 
                 if (azimuth >= 350 || azimuth <= 10) pointText = "N"
                 else if (azimuth in 281f..349f) pointText = "NW"
@@ -78,18 +80,18 @@ class OrientationActivity : BaseBlockActivity() {
                 else if (azimuth in 81f..100f) pointText = "E"
                 else if (azimuth in 11f..80f) pointText = "NE"
 
-                compassValue.text = "${azimuth.toInt()} ° $pointText"
+                content.compassValue.text = "${azimuth.toInt()} ° $pointText"
 
                 when (angleUnit) {
                     "°" -> {
-                        xValue.text = getString(R.string.azimuth, "${decimalPrecision?.format(orientationArray[0])} °")
-                        yValue.text = getString(R.string.pitch, "${decimalPrecision?.format(orientationArray[1])} °")
-                        zValue.text = getString(R.string.roll, "${decimalPrecision?.format(orientationArray[2])} °")
+                        content.xValue.text = getString(R.string.azimuth, "${decimalPrecision?.format(orientationArray[0])} °")
+                        content.yValue.text = getString(R.string.pitch, "${decimalPrecision?.format(orientationArray[1])} °")
+                        content.zValue.text = getString(R.string.roll, "${decimalPrecision?.format(orientationArray[2])} °")
                     }
                     "rad" -> {
-                        xValue.text = getString(R.string.azimuth, "${decimalPrecision?.format(orientationArray[0] * Math.PI / 180)} rad")
-                        yValue.text = getString(R.string.pitch, "${decimalPrecision?.format(orientationArray[1] * Math.PI / 180)} rad")
-                        zValue.text = getString(R.string.roll, "${decimalPrecision?.format(orientationArray[2] * Math.PI / 180)} rad")
+                        content.xValue.text = getString(R.string.azimuth, "${decimalPrecision?.format(orientationArray[0] * Math.PI / 180)} rad")
+                        content.yValue.text = getString(R.string.pitch, "${decimalPrecision?.format(orientationArray[1] * Math.PI / 180)} rad")
+                        content.zValue.text = getString(R.string.roll, "${decimalPrecision?.format(orientationArray[2] * Math.PI / 180)} rad")
                     }
                 }
             }
@@ -97,9 +99,9 @@ class OrientationActivity : BaseBlockActivity() {
     }
 
     override fun addCode() {
-        xValue.text = getString(R.string.azimuth, getString(R.string.unknownValue))
-        yValue.text = getString(R.string.pitch, getString(R.string.unknownValue))
-        zValue.text = getString(R.string.roll, getString(R.string.unknownValue))
+        content.xValue.text = getString(R.string.azimuth, getString(R.string.unknownValue))
+        content.yValue.text = getString(R.string.pitch, getString(R.string.unknownValue))
+        content.zValue.text = getString(R.string.roll, getString(R.string.unknownValue))
 
         orientationManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = orientationManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -113,10 +115,10 @@ class OrientationActivity : BaseBlockActivity() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.orientation_page)} :\n" +
-            "${xValue.text}\n" +
-            "${yValue.text}\n" +
-            "${zValue.text}\n" +
-            "${getString(R.string.compassTitle)} : ${compassValue.text}\n"
+            "${content.xValue.text}\n" +
+            "${content.yValue.text}\n" +
+            "${content.zValue.text}\n" +
+            "${getString(R.string.compassTitle)} : ${content.compassValue.text}\n"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.orientation_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

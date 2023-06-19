@@ -9,13 +9,15 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
+import android.view.LayoutInflater
 import androidx.core.app.ActivityCompat
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_pedometer.*
+import it.alwe.sensorify.databinding.ActivityPedometerBinding
 
-class PedometerActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class PedometerActivity : BaseBlockActivity<ActivityPedometerBinding>(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
     private var pedometerManager: SensorManager? = null
     private var pedometer: Sensor? = null
     private var distanceUnit: String? = "m"
@@ -23,8 +25,9 @@ class PedometerActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
     //private var firstStepTime: Long = 0L
     //private var secondStepTime: Long = 0L
 
-    override val contentView: Int
-        get() = R.layout.activity_pedometer
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityPedometerBinding {
+        return ActivityPedometerBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -62,11 +65,11 @@ class PedometerActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
                 else speedValue.text = "0 m/s"
             }*/
 
-            stepsValue.text = steps.toString()
+            content.stepsValue.text = steps.toString()
 
             when (distanceUnit) {
-                "m" -> distanceValue.text = "${decimalPrecision?.format((steps * 74) / 100.0)} m"
-                "ft" -> distanceValue.text = "${decimalPrecision?.format(((steps * 74) / 100.0) * 3.281)} ft"
+                "m" -> content.distanceValue.text = "${decimalPrecision?.format((steps * 74) / 100.0)} m"
+                "ft" -> content.distanceValue.text = "${decimalPrecision?.format(((steps * 74) / 100.0) * 3.281)} ft"
             }
         }
     }
@@ -81,12 +84,12 @@ class PedometerActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
         pedometerManager = getSystemService(SENSOR_SERVICE) as SensorManager
         pedometer = pedometerManager?.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
 
-        sensorName.text = pedometer?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = pedometer?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = pedometer?.version.toString()
-        sensorPowerUsage.text = "${pedometer?.power.toString()} mA"
-        sensorResolution.text = convertSuperScript(pedometer?.resolution.toString())
-        sensorRange.text = convertSuperScript(pedometer?.maximumRange.toString())
+        content.sensorName.text = pedometer?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = pedometer?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = pedometer?.version.toString()
+        content.sensorPowerUsage.text = "${pedometer?.power.toString()} mA"
+        content.sensorResolution.text = convertSuperScript(pedometer?.resolution.toString())
+        content.sensorRange.text = convertSuperScript(pedometer?.maximumRange.toString())
 
         if (Build.VERSION.SDK_INT >= 29) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED)
@@ -98,14 +101,14 @@ class PedometerActivity : BaseBlockActivity(), ActivityCompat.OnRequestPermissio
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = "${getString(R.string.pedometer_page)} :\n" +
-            "${getString(R.string.stepsText)} ${stepsValue.text}\n" +
-            "${getString(R.string.distanceText)} ${distanceValue.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}"
+            "${getString(R.string.stepsText)} ${content.stepsValue.text}\n" +
+            "${getString(R.string.distanceText)} ${content.distanceValue.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.pedometer_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))

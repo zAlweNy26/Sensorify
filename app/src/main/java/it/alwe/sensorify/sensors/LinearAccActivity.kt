@@ -5,32 +5,34 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import it.alwe.sensorify.BaseBlockActivity
 import it.alwe.sensorify.R
-import kotlinx.android.synthetic.main.activity_linear_acceration.*
+import it.alwe.sensorify.databinding.ActivityLinearAccerationBinding
 
-class LinearAccActivity : BaseBlockActivity() {
+class LinearAccActivity : BaseBlockActivity<ActivityLinearAccerationBinding>() {
     private var linAccManager: SensorManager? = null
     private var linearAcceleration: Sensor? = null
     private var distanceUnit: String? = "m"
 
-    override val contentView: Int
-        get() = R.layout.activity_linear_acceration
+    override fun setupViewBinding(inflater: LayoutInflater): ActivityLinearAccerationBinding {
+        return ActivityLinearAccerationBinding.inflate(inflater)
+    }
 
     override fun onResume() {
         super.onResume()
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
         distanceUnit = sharedPrefs.getString("distanceUnit", "m")
         setListenerRegistered(true, linAccManager!!, linearAccelerationListener, linearAcceleration!!)
-        toggleThread(true)
+        //toggleThread(true)
     }
 
     override fun onPause() {
         super.onPause()
         setListenerRegistered(false, linAccManager!!, linearAccelerationListener, linearAcceleration!!)
-        toggleThread(false)
+        //toggleThread(false)
     }
 
     private val linearAccelerationListener: SensorEventListener = object : SensorEventListener {
@@ -58,11 +60,11 @@ class LinearAccActivity : BaseBlockActivity() {
                 }
             }
 
-            xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(linearAccelerationArray[0])} $distanceUnit/s²")
-            yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(linearAccelerationArray[1])} $distanceUnit/s²")
-            zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(linearAccelerationArray[2])} $distanceUnit/s²")
-            sensorResolution.text = "${convertSuperScript(resolution)} $distanceUnit/s²"
-            sensorRange.text = "${convertSuperScript(maxRange)} $distanceUnit/s²"
+            content.xValue.text = getString(R.string.valueX, "${decimalPrecision?.format(linearAccelerationArray[0])} $distanceUnit/s²")
+            content.yValue.text = getString(R.string.valueY, "${decimalPrecision?.format(linearAccelerationArray[1])} $distanceUnit/s²")
+            content.zValue.text = getString(R.string.valueZ, "${decimalPrecision?.format(linearAccelerationArray[2])} $distanceUnit/s²")
+            content.sensorResolution.text = "${convertSuperScript(resolution)} $distanceUnit/s²"
+            content.sensorRange.text = "${convertSuperScript(maxRange)} $distanceUnit/s²"
 
             addEntry(1, 3, linearAccelerationArray, arrayOf("X", "Y", "Z"), arrayOf(
                     "#" + Integer.toHexString(ContextCompat.getColor(applicationContext, R.color.xAxisColor)),
@@ -74,17 +76,17 @@ class LinearAccActivity : BaseBlockActivity() {
     }
 
     override fun addCode() {
-        xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
-        yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
-        zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
+        content.xValue.text = getString(R.string.valueX, getString(R.string.unknownValue))
+        content.yValue.text = getString(R.string.valueY, getString(R.string.unknownValue))
+        content.zValue.text = getString(R.string.valueZ, getString(R.string.unknownValue))
 
         linAccManager = getSystemService(SENSOR_SERVICE) as SensorManager
         linearAcceleration = linAccManager?.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
 
-        sensorName.text = linearAcceleration?.name?.replaceFirstChar { it.uppercase() }
-        sensorVendor.text = linearAcceleration?.vendor.toString().replaceFirstChar { it.uppercase() }
-        sensorVersion.text = linearAcceleration?.version.toString()
-        sensorPowerUsage.text = "${linearAcceleration?.power.toString()} mA"
+        content.sensorName.text = linearAcceleration?.name?.replaceFirstChar { it.uppercase() }
+        content.sensorVendor.text = linearAcceleration?.vendor.toString().replaceFirstChar { it.uppercase() }
+        content.sensorVersion.text = linearAcceleration?.version.toString()
+        content.sensorPowerUsage.text = "${linearAcceleration?.power.toString()} mA"
 
         createChart(10f, 3f, 0, legend = true, negative = true)
         startLiveChart()
@@ -95,15 +97,15 @@ class LinearAccActivity : BaseBlockActivity() {
         sharingIntent.type = "text/plain"
         val sb = StringBuilder()
         sb.append(getString(R.string.linear_acceleration_page) + " :\n")
-        sb.append("${xValue.text}\n" +
-            "${yValue.text}\n" +
-            "${zValue.text}\n" +
-            "${getString(R.string.sensorName)} ${sensorName.text}\n" +
-            "${getString(R.string.sensorVendor)} ${sensorVendor.text}\n" +
-            "${getString(R.string.sensorVersion)} ${sensorVersion.text}\n" +
-            "${getString(R.string.sensorPowerUsage)} ${sensorPowerUsage.text}\n" +
-            "${getString(R.string.sensorResolution)} ${sensorResolution.text}\n" +
-            "${getString(R.string.sensorRange)} ${sensorRange.text}")
+        sb.append("${content.xValue.text}\n" +
+            "${content.yValue.text}\n" +
+            "${content.zValue.text}\n" +
+            "${getString(R.string.sensorName)} ${content.sensorName.text}\n" +
+            "${getString(R.string.sensorVendor)} ${content.sensorVendor.text}\n" +
+            "${getString(R.string.sensorVersion)} ${content.sensorVersion.text}\n" +
+            "${getString(R.string.sensorPowerUsage)} ${content.sensorPowerUsage.text}\n" +
+            "${getString(R.string.sensorResolution)} ${content.sensorResolution.text}\n" +
+            "${getString(R.string.sensorRange)} ${content.sensorRange.text}")
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.linear_acceleration_page))
         sharingIntent.putExtra(Intent.EXTRA_TEXT, sb.toString())
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)))
